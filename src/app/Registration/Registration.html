@@ -1,0 +1,10 @@
+<div><form (ngSubmit)="registerUser()" #registerForm="ngForm">
+ <label for="username">UserName:</label> <input name="username" [(ngModel)]="username" required />
+ <br> <label for="password">password:</label><input name="password" [(ngModel)]="password" type="password" required /><br>
+  <label for="role">role:</label><select name="role" [(ngModel)]="role">
+    <option value="CUSTOMER">CUSTOMER</option>
+    <option value="admin">ADMIN</option>
+  </select><br>
+  <button type="submit">Register</button>
+</form>
+</div>

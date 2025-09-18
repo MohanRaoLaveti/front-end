@@ -1,0 +1,21 @@
+<form (ngSubmit)="onSubmit()" #profileForm="ngForm">
+ <br> <input type="text" name="fullName" [(ngModel)]="profile.fullName" placeholder="Full Name" required />
+ <br>  <input type="email" name="email" [(ngModel)]="profile.email" placeholder="Email" required />
+ <br>  <input type="tel" name="phone" [(ngModel)]="profile.phone" placeholder="Phone" required />
+ <br>  <input type="text" name="address" [(ngModel)]="profile.address" placeholder="Address" />
+  <br> <input type="text" name="city" [(ngModel)]="profile.city" placeholder="City" />
+ <br>  <input type="text" name="state" [(ngModel)]="profile.state" placeholder="State" />
+ <br>  <input type="text" name="country" [(ngModel)]="profile.country" placeholder="Country" />
+  <br> <input type="text" name="pincode" [(ngModel)]="profile.pincode" placeholder="Pincode" />
+ <br>  <input type="date" name="dateOfBirth" [(ngModel)]="profile.dateOfBirth" placeholder="Date of Birth" />
+ <br>  
+  <select name="kycStatus" [(ngModel)]="profile.kycStatus">
+    <option value="PENDING">Pending</option>
+    <option value="VERIFIED">Verified</option>
+    <option value="REJECTED">Rejected</option>
+  </select>
+<br> 
+  <input type="number" name="userId" [(ngModel)]="profile.user.id" placeholder="User ID" required />
+<br> 
+  <button type="submit">Create Profile</button>
+</form>
