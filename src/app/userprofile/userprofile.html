@@ -1,0 +1,20 @@
+<div *ngIf="accountdata?.length > 0">
+  
+
+<p *ngIf="!accountdata?.length">No account data available.</p>
+
+<h1>Welcome, MR.{{accountdata[0].user.username}} 👋</h1>
+<p><strong>AccountHolder Name:-</strong>{{accountdata[0].user.username}}</p>
+<p><strong>AccountNumber:-</strong>{{accountdata[0].accountNumber}}</p>
+<p><strong>AccountType:-</strong>{{accountdata[0].accountType}}</p>
+<p><strong>AccountBalance:-</strong>{{accountdata[0].balance}}</p>
+</div>
+<div class="dashboard-panels">
+ 
+    <a routerLink="/profile/">View Profile</a> 
+    <a routerLink="/transfer">Transfer Funds</a>
+    <a routerLink="/kyc">KYC Status</a>
+    <a routerLink="/history">Recent Transactions</a>
+    <a routerLink="/balance">Check balance</a>
+  </div>
+ <router-outlet></router-outlet>

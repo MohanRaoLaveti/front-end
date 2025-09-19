@@ -1,10 +1,26 @@
-<div><form (ngSubmit)="registerUser()" #registerForm="ngForm">
- <label for="username">UserName:</label> <input name="username" [(ngModel)]="username" required />
- <br> <label for="password">password:</label><input name="password" [(ngModel)]="password" type="password" required /><br>
-  <label for="role">role:</label><select name="role" [(ngModel)]="role">
-    <option value="CUSTOMER">CUSTOMER</option>
-    <option value="admin">ADMIN</option>
-  </select><br>
-  <button type="submit">Register</button>
-</form>
-</div>
+<section class="register-container">
+  <h2>Create Your SmartBanking Account</h2>
+  <form (ngSubmit)="registerUser()" #registerForm="ngForm" class="register-form">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input name="username" [(ngModel)]="username" required placeholder="Enter your username" />
+    </div>
+ 
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input name="password" [(ngModel)]="password" type="password" required placeholder="Enter a secure password" />
+    </div>
+ 
+    <div class="form-group">
+      <label for="role">Role</label>
+      <select name="role" [(ngModel)]="role" required>
+        <option value="CUSTOMER">Customer</option>
+        <option value="ADMIN">Admin</option>
+      </select>
+    </div>
+ 
+    <button type="submit" [disabled]="registerForm.invalid">Register</button>
+  </form>
+</section>
+ 
+ 

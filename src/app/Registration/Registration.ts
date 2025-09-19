@@ -40,19 +40,18 @@ export class Registration {
 
     this.http.post(url, body, { headers }).subscribe({
       next: (response: any) => {
+        console.log(response)
         if (response.id && response.id !== -1) {
           console.log('✅ Registration successful:', response);
           alert('Registered successfully. User ID: ' + response.id);
 
-          // Store token if needed
           localStorage.setItem('token', response.token);
 
-          // Navigate to profile creation
           this.router.navigate(['/customer-profile', response.id], {
             queryParams: { token: response.token }
           });
         } else {
-          alert('⚠️ Registration failed: ' + response.message);
+          alert('⚠️ Registration failed: ' + response);
         }
       },
       error: (error) => {

@@ -8,11 +8,17 @@
  <br>  <input type="text" name="country" [(ngModel)]="profile.country" placeholder="Country" />
   <br> <input type="text" name="pincode" [(ngModel)]="profile.pincode" placeholder="Pincode" />
  <br>  <input type="date" name="dateOfBirth" [(ngModel)]="profile.dateOfBirth" placeholder="Date of Birth" />
- <br>  
+ <br>
   <select name="kycStatus" [(ngModel)]="profile.kycStatus">
     <option value="PENDING">Pending</option>
     <option value="VERIFIED">Verified</option>
     <option value="REJECTED">Rejected</option>
+  </select>
+<br> 
+<select name="account type" [(ngModel)]="accountType" >
+    <option value="CURRENT">CURRENT</option>
+    <option value="SAVINGS">SAVINGS</option>
+    <option value="SAVINGS">CREDIT</option>
   </select>
 <br> 
   <input type="number" name="userId" [(ngModel)]="profile.user.id" placeholder="User ID" required />

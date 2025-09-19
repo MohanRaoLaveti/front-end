@@ -7,7 +7,7 @@ import { routes } from './app/app.routes';
 
 bootstrapApplication(App, {
   providers: [
-    provideRouter(routes, withHashLocation()), // ✅ Enables hash-based routing
+    provideRouter(routes, withHashLocation()), 
     provideHttpClient()
   ]
 });

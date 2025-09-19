@@ -1,11 +1,37 @@
-<p>welcome works!</p>
-<h1>Hello This is a Banking Application</h1><div class="dd">
-<p>In our smart banking platform, the frontend is designed to deliver a seamless, secure, and personalized user experience. The interface presents a dynamic dashboard that consolidates account balances, recent transactions, and actionable insights in real time. Users can easily navigate through services like fund transfers, bill payments, and loan applications using intuitive quick-access panels. Each component is modular and responsive, ensuring optimal performance across devices. Security is woven into the design, with features like biometric authentication prompts, masked account details, and contextual alerts to guide users safely through financial operations. The overall layout reflects a modern, customer-first approach—where convenience meets trust in every interaction.</p>
-</div>
-<div class="va">
-<ul><li>  <a routerLink="/login">Login</a>
-</li><li><a routerLink="/Registration">Register</a>
-</li></ul>
-</div>
-
+<header class="navbar">
+  <div class="logo">🏦 SmartBanking</div>
+  <nav class="nav-links">
+    <a routerLink="/login">Login</a>
+    <a routerLink="/Registration">Register</a>
+  </nav>
+</header>
+ 
+<section class="hero">
+  <div class="hero-content">
+    <h1>Welcome to SmartBanking</h1>
+    <p>Your trusted partner in secure, modern banking.</p>
+    <a routerLink="/login" class="cta-button">Get Started</a>
+  </div>
+</section>
+ 
+<section class="features">
+  <div class="feature">
+    <h3>🔐 Secure Access</h3>
+    <p>Biometric login, encrypted data, and real-time fraud alerts keep your finances safe.</p>
+  </div>
+  <div class="feature">
+    <h3>📊 Smart Dashboard</h3>
+    <p>Track balances, transactions, and insights—all in one place.</p>
+  </div>
+  <div class="feature">
+    <h3>💸 Instant Transfers</h3>
+    <p>Send money across accounts and banks with lightning speed and zero hassle.</p>
+  </div>
+</section>
+ 
+<footer class="footer">
+  <p>&copy; 2025 SmartBanking. All rights reserved.</p>
+</footer>
+ 
 <router-outlet></router-outlet>
+ 
