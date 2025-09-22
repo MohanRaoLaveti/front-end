@@ -1,20 +1,37 @@
-<div *ngIf="accountdata?.length > 0">
-  
-
+<!-- Show account info -->
 <p *ngIf="!accountdata?.length">No account data available.</p>
 
-<h1>Welcome, MR.{{accountdata[0].user.username}} 👋</h1>
-<p><strong>AccountHolder Name:-</strong>{{accountdata[0].user.username}}</p>
-<p><strong>AccountNumber:-</strong>{{accountdata[0].accountNumber}}</p>
-<p><strong>AccountType:-</strong>{{accountdata[0].accountType}}</p>
-<p><strong>AccountBalance:-</strong>{{accountdata[0].balance}}</p>
+<div *ngIf="accountdata?.length > 0">
+  <h1>Welcome, MR.{{ accountdata[0].user.username }} 👋</h1>
+  <p><strong>AccountHolder Name:</strong> {{ accountdata[0].user.username }}</p>
+  <p><strong>AccountNumber:</strong> {{ accountdata[0].accountNumber }}</p>
+  <p><strong>AccountType:</strong> {{ accountdata[0].accountType }}</p>
+  <p><strong>AccountBalance:</strong> {{ accountdata[0].balance }}</p>
 </div>
+
+<!-- Dashboard links -->
 <div class="dashboard-panels">
- 
-    <a routerLink="/profile/">View Profile</a> 
-    <a routerLink="/transfer">Transfer Funds</a>
-    <a routerLink="/kyc">KYC Status</a>
-    <a routerLink="/history">Recent Transactions</a>
-    <a routerLink="/balance">Check balance</a>
-  </div>
- <router-outlet></router-outlet>
+  <a (click)="loadProfile()" class="mm">👤 View Profile</a>
+    <a (click)="Transfer()" class="mm">Transfer Funds</a>
+<a (click)="deposit()" class="mm">deposit</a>
+  <a (click)="loadProfile()" class="mm">KYC Status</a>
+  <a (click)="loadTransactions()" class="mm">Recent Transactions</a>
+</div>
+
+<!-- Conditionally render child component -->
+<div *ngIf="showProfile" class="view1">
+  <app-viewprofile #view></app-viewprofile>
+</div>
+<div *ngIf="showTransfer" class="view1">
+<app-transfer [fromAccountId]="accountdata[0].id" [token]="token"></app-transfer>
+</div>
+<div *ngIf="showDeposit" class="view1">
+  <app-deposit [accountId]="accountdata[0].id"  ></app-deposit>
+</div>
+<div *ngIf="showTransactions" class="view1">
+  <app-transactions [accountId]="accountdata[0].id"  ></app-transactions>
+</div>
+<!-- Display fetched profile data -->
+
+
+<router-outlet></router-outlet>

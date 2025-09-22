@@ -1,22 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { Viewprofile } from '../viewprofile/viewprofile';
+import { Transfer } from '../transfer/transfer';
+import { DepositComponent } from '../deposit/deposit';
+import { Transactions } from '../transactions/transactions';
 
 @Component({
   selector: 'app-userprofile',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, Viewprofile,Transfer,DepositComponent,Transactions],
   templateUrl: './userprofile.html',
-  styleUrls: ['./userprofile.scss'] // ✅ corrected from styleUrl to styleUrls
+  styleUrls: ['./userprofile.scss']
 })
 export class Userprofile implements OnInit {
   userId: number = 0;
   accountType: string = '';
   accountdata: any;
   token: string = '';
-
+  viewdetails: any[] = [];
+  showProfile = true;
+ showTransfer=false;
+ showDeposit=false;
+ showTransactions=false;
   constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
   ngOnInit() {
@@ -25,7 +33,8 @@ export class Userprofile implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.accountType = params['accountType'] || '';
       this.token = params['token'] || '';
-
+localStorage.setItem('token', this.token);
+console.log(localStorage.getItem('token'));
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.token}`
@@ -36,14 +45,47 @@ export class Userprofile implements OnInit {
       this.http.get(url, { headers }).subscribe({
         next: (res) => {
           this.accountdata = res;
-          console.log('📥 Account Data:', res);
+          console.log(res);
         },
         error: (err) => {
-          console.error('❌ Failed to fetch account data:', err);}
+          console.error('❌ Failed to fetch account data:', err);
+        }
       });
-
-      console.log('🧾 User ID:', this.userId);
-      console.log('🏦 Account Type:', this.accountType);
     });
+  }
+
+  loadProfile() {
+    this.showProfile = true;
+               this.showTransfer=false;
+               this.showDeposit=false;
+    this.showTransactions=false;
+
+  }
+  loadTransactions(){
+this.showTransactions=true;
+     this.showTransfer=false;
+        this.showProfile=false;
+        this.showDeposit=false;
+  }
+  deposit(){
+this.showTransfer=false;
+        this.showProfile=false;
+        this.showDeposit=true;
+        this.showTransactions=false;
+  }
+  Transfer(){
+        this.showTransfer=true;
+        this.showProfile=false;
+        this.showDeposit=false;
+        this.showTransactions=false;
+  }
+
+  vie(view: Viewprofile) {
+    const profile = view.pro();
+    if (profile) {
+      this.viewdetails = [profile];
+    } else {
+      alert('Profile not loaded yet. Please wait a moment.');
+    }
   }
 }

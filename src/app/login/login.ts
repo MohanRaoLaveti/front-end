@@ -38,7 +38,7 @@ saveDataAndLogin() {
                 }
               });
             },
-            error: (err) => {
+            error: (err:any) => {
               console.error('Account fetch failed:', err);
               this.statusMessage = '❌ Failed to fetch account details.';
               alert('Unable to retrieve account info.');

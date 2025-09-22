@@ -6,6 +6,9 @@ import { Welcome } from './welcome/welcome';
 import { LoginComponent } from './login/login';
 import { Createprofile } from './createprofile/createprofile';
 import { Userprofile } from './userprofile/userprofile';
+import { Viewprofile } from './viewprofile/viewprofile';
+import { Transfer } from './transfer/transfer';
+import { DepositComponent } from './deposit/deposit';
 
 export const routes: Routes = [
   { path: 'Registration', component: Registration },
@@ -13,6 +16,9 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'customer-profile/:id', component: Createprofile },
   { path: 'app-userprofile/:id', component: Userprofile } ,
-  { path: 'profile', component: Userprofile } ,
-  // ✅ updated
+  { path: 'profile/:id', component: Userprofile } ,
+  {path: 'profile/:id',component: Viewprofile},
+  {path:'profile/transfer',component:Transfer},
+    {path:'profile/deposit',component:DepositComponent},
+
 ];
