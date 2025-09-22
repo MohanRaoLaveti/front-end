@@ -1,55 +1,52 @@
- 
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
- 
+
 @Component({
-  selector: 'app-deposit',
+  selector: 'app-withdraw',
   standalone: true,
   imports: [CommonModule, FormsModule, RouterModule, HttpClientModule],
-  templateUrl: './deposit.html',
-  styleUrls: ['./deposit.scss']
+  templateUrl: './withdraw.html',
+  styleUrls: ['./withdraw.scss']
 })
-export class DepositComponent implements OnInit {
+export class WithdrawComponent implements OnInit {
   @Input() accountId: number = 0;
   token: string = '';
   amount: number = 0;
   statusMessage: string = '';
 
   constructor(private route: ActivatedRoute, private http: HttpClient) {}
- 
+
   ngOnInit() {
- 
     this.route.queryParams.subscribe(params => {
       this.token = params['token'] || '';
       console.log('🔐 Token received:', this.token);
     });
   }
- 
-  depositFunds() {
+
+  withdrawFunds() {
     if (this.amount <= 0 || !this.accountId || !this.token) {
       this.statusMessage = '⚠️ Enter a valid amount and ensure account ID and token are set.';
       return;
     }
- 
-    const url = `http://localhost:8080/api/transactions/deposit/${this.accountId}?amount=${this.amount}`;
+
+    const url = `http://localhost:8080/api/transactions/withdraw/${this.accountId}?amount=${this.amount}`;
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${this.token}`
     });
- 
-    this.http.post(url,null,{ headers }).subscribe({
+
+    this.http.post(url, null, { headers }).subscribe({
       next: (res: any) => {
-        this.statusMessage = `✅ ₹${res.amount} deposited successfully into account ${res.account.accountNumber}.`;
+        this.statusMessage = `✅ ₹${res.amount} withdrawn successfully from account ${res.account.accountNumber}.`;
       },
       error: (err) => {
-        console.error('❌ Deposit failed:', err);
-        this.statusMessage = `❌ Deposit failed: ${err.status} ${err.statusText}`;
+        console.error('❌ Withdraw failed:', err);
+        this.statusMessage = `❌ Withdraw failed: ${err.status} ${err.statusText}`;
       }
     });
   }
 }
- 

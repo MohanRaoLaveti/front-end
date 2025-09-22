@@ -7,24 +7,27 @@ import { Viewprofile } from '../viewprofile/viewprofile';
 import { Transfer } from '../transfer/transfer';
 import { DepositComponent } from '../deposit/deposit';
 import { Transactions } from '../transactions/transactions';
+import { WithdrawComponent } from "../withdraw/withdraw";
 
 @Component({
   selector: 'app-userprofile',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, Viewprofile,Transfer,DepositComponent,Transactions],
+  imports: [CommonModule, FormsModule, RouterModule, Viewprofile, Transfer, DepositComponent, Transactions, WithdrawComponent],
   templateUrl: './userprofile.html',
   styleUrls: ['./userprofile.scss']
 })
 export class Userprofile implements OnInit {
+
   userId: number = 0;
   accountType: string = '';
   accountdata: any;
   token: string = '';
   viewdetails: any[] = [];
-  showProfile = true;
+  showProfile = false;
  showTransfer=false;
  showDeposit=false;
  showTransactions=false;
+  showWithdraw = false;
   constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
   ngOnInit() {
@@ -59,6 +62,7 @@ console.log(localStorage.getItem('token'));
                this.showTransfer=false;
                this.showDeposit=false;
     this.showTransactions=false;
+     this.showWithdraw = false;
 
   }
   loadTransactions(){
@@ -66,18 +70,30 @@ this.showTransactions=true;
      this.showTransfer=false;
         this.showProfile=false;
         this.showDeposit=false;
+         this.showWithdraw = false;
   }
   deposit(){
 this.showTransfer=false;
         this.showProfile=false;
         this.showDeposit=true;
         this.showTransactions=false;
+                 this.showWithdraw = false;
+
   }
   Transfer(){
         this.showTransfer=true;
         this.showProfile=false;
         this.showDeposit=false;
         this.showTransactions=false;
+                 this.showWithdraw = false;
+
+  }
+  withdraw() {
+    this.showProfile = false;
+    this.showTransfer = false;
+    this.showDeposit = false;
+    this.showWithdraw = true;
+    this.showTransactions = false;
   }
 
   vie(view: Viewprofile) {
