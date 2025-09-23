@@ -1,0 +1,21 @@
+<section class="account-creation">
+  <h2>🏦 Create Account</h2>
+
+  <p class="status-message">{{ statusMessage }}</p>
+
+  <div *ngIf="profile">
+    <p><strong>Name:</strong> {{ profile.fullName }}</p>
+    <p><strong>KYC Status:</strong> {{ profile.kycStatus }}</p>
+
+    <div class="form-group">
+      <label for="accountType">Account Type</label>
+      <select [(ngModel)]="accountType" name="accountType">
+        <option value="SAVINGS">Savings</option>
+        <option value="CURRENT">Current</option>
+        <option value="CREDIT">Credit</option>
+      </select>
+    </div>
+
+    <button (click)="createAccount()" [disabled]="profile.kycStatus !== 'VERIFIED'">Create Account</button>
+  </div>
+</section>

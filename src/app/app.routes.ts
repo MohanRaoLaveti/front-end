@@ -10,6 +10,7 @@ import { Viewprofile } from './viewprofile/viewprofile';
 import { Transfer } from './transfer/transfer';
 import { DepositComponent } from './deposit/deposit';
 import { WithdrawComponent } from './withdraw/withdraw';
+import { CreateAccountComponent } from './create-accountt/create-account';
 
 export const routes: Routes = [
   { path: 'Registration', component: Registration },
@@ -19,6 +20,7 @@ export const routes: Routes = [
   { path: 'app-userprofile/:id', component: Userprofile } ,
   { path: 'profile/:id', component: Userprofile } ,
   {path: 'profile/:id',component: Viewprofile},
+    { path: 'create-account/:id', component: CreateAccountComponent },
   {path:'profile/transfer',component:Transfer},
   {
     path: 'withdraw/:id',

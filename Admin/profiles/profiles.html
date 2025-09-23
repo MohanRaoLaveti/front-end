@@ -1,0 +1,28 @@
+<section class="admin-dashboard">
+  <h2>All Customer Profiles</h2>
+
+  <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+  <table class="profile-table" *ngIf="profiles.length > 0">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Country</th>
+        <th>Pincode</th>
+        <th>KYC Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let profile of profiles">
+        <td>{{ profile.fullName }}</td>
+        <td>{{ profile.email }}</td>
+        <td>{{ profile.phone }}</td>
+        <td>{{ profile.country }}</td>
+        <td>{{ profile.pincode }}</td>
+        <td>{{ profile.kycStatus }}</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
