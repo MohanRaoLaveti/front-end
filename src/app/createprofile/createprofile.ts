@@ -45,7 +45,7 @@ export class Createprofile implements OnInit {
     console.log('🆔 User ID:', this.profile.user.id);
     console.log('🔐 Token:', this.token);
   }
-
+meythod(){}
   onSubmit() {
     const profileUrl = 'http://localhost:8080/api/customer/profile/create';
     const headers = new HttpHeaders({
@@ -58,7 +58,7 @@ export class Createprofile implements OnInit {
     this.http.post(profileUrl, this.profile, { headers }).subscribe({
       next: () => {
         const openAccountUrl = `http://localhost:8080/api/accounts/open/${this.profile.user.id}?accountType=${this.accountType}`;
-
+this.meythod();
         this.http.post(openAccountUrl, null, { headers }).subscribe({
           next: (accountResponse: any) => {
             console.log('🏦 Account opened:', accountResponse);
