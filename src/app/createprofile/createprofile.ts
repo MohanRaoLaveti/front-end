@@ -44,6 +44,7 @@ export class Createprofile implements OnInit {
 
     console.log('🆔 User ID:', this.profile.user.id);
     console.log('🔐 Token:', this.token);
+    console.log(this.profile);
   }
 
   onSubmit() {
@@ -62,6 +63,7 @@ export class Createprofile implements OnInit {
         this.http.post(openAccountUrl, null, { headers }).subscribe({
           next: (accountResponse: any) => {
             console.log('🏦 Account opened:', accountResponse);
+           
             alert('Account opened successfully! Account Number: ' + accountResponse.accountNumber);
 
             this.router.navigate(['/app-userprofile', this.profile.user.id], {

@@ -1,24 +1,31 @@
 <!-- Show account info -->
+<nav class="navbar">
+  <div class="navbar-left">
+<a routerLink="/" class="brand-link">Smart Banking</a>
+  </div>
+  <div class="navbar-right">
+    <a (click)="loadProfile()" class="profile-link">👤 View Profile</a>
+  </div>
+</nav>
 <p *ngIf="!accountdata?.length">No account data available.</p>
 
-<div *ngIf="accountdata?.length > 0">
-  <h1>Welcome, MR.{{ accountdata[0].user.username }} 👋</h1>
+<div *ngIf="accountdata?.length > 0" class="account-summary-card">
+  <h1>Welcome, {{ accountdata[0].user.username }} 👋</h1>
   <p><strong>AccountHolder Name:</strong> {{ accountdata[0].user.username }}</p>
   <p><strong>AccountNumber:</strong> {{ accountdata[0].accountNumber }}</p>
   <p><strong>AccountType:</strong> {{ accountdata[0].accountType }}</p>
-  <p><strong>AccountBalance:</strong> {{ accountdata[0].balance }}</p>
+  <p><strong>AccountBalance:</strong> ₹{{ accountdata[0].balance }}</p>
 </div>
 
-<!-- Dashboard links -->
+
 <div class="dashboard-panels">
-  <a (click)="loadProfile()" class="mm">👤 View Profile</a>
     <a (click)="Transfer()" class="mm">Transfer Funds</a>
-<a (click)="deposit()" class="mm">deposit</a>
+<a (click)="deposit()" class="mm">Deposit</a>
+  <a (click)="withdraw()" class="mm">Withdraw</a>
   <a (click)="loadProfile()" class="mm">KYC Status</a>
   <a (click)="loadTransactions()" class="mm">Recent Transactions</a>
 </div>
 
-<!-- Conditionally render child component -->
 <div *ngIf="showProfile" class="view1">
   <app-viewprofile #view></app-viewprofile>
 </div>
@@ -31,7 +38,10 @@
 <div *ngIf="showTransactions" class="view1">
   <app-transactions [accountId]="accountdata[0].id"  ></app-transactions>
 </div>
-<!-- Display fetched profile data -->
+<div *ngIf="showWithdraw" class="view1">
+  <app-withdraw [accountId]="accountdata[0].id"></app-withdraw>
+</div>
+
 
 
 <router-outlet></router-outlet>
