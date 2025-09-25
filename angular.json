@@ -15,6 +15,7 @@
           "options": {
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
+            
             "assets": [
               {
                 "glob": "**/*",
@@ -86,5 +87,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "a33fb43f-7d82-498c-972a-10918bfea911"
   }
 }
