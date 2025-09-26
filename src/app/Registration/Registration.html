@@ -11,13 +11,13 @@
       <input name="password" [(ngModel)]="password" type="password" required placeholder="Enter a secure password" />
     </div>
  
-    <div class="form-group">
+    <!-- <div class="form-group">
       <label for="role">Role</label>
       <select name="role" [(ngModel)]="role" required>
         <option value="CUSTOMER">Customer</option>
         <option value="ADMIN">Admin</option>
       </select>
-    </div>
+    </div> -->
  
     <button type="submit" [disabled]="registerForm.invalid">Register</button>
   </form>

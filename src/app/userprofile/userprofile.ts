@@ -8,27 +8,67 @@ import { Transfer } from '../transfer/transfer';
 import { DepositComponent } from '../deposit/deposit';
 import { Transactions } from '../transactions/transactions';
 import { WithdrawComponent } from "../withdraw/withdraw";
+import { TransactionChartComponent } from "../transaction-chart/transaction-chart";
+import { RecentTransactionsChartComponent } from '../recent-transactions-chart/recent-transactions-chart';
+import { BalanceTrendChartComponent } from '../balance-trend-chart/balance-trend-chart';
 
 @Component({
   selector: 'app-userprofile',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, Viewprofile, Transfer, DepositComponent, Transactions, WithdrawComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    TransactionChartComponent,
+    RecentTransactionsChartComponent,
+    BalanceTrendChartComponent
+  ],
   templateUrl: './userprofile.html',
   styleUrls: ['./userprofile.scss']
 })
 export class Userprofile implements OnInit {
+  recentTransactions = [
+    { date: 'Sep 20', amount: 5000 },
+    { date: 'Sep 21', amount: -1200 },
+    { date: 'Sep 22', amount: 3000 },
+    { date: 'Sep 23', amount: -800 },
+    { date: 'Sep 24', amount: 1500 }
+  ];
+
+  balanceHistory = [
+    { date: 'Sep 20', balance: 10000 },
+    { date: 'Sep 21', balance: 8800 },
+    { date: 'Sep 22', balance: 11800 },
+    { date: 'Sep 23', balance: 11000 },
+    { date: 'Sep 24', balance: 12500 }
+  ];
+
+  policies: string[] = [
+    "✅ All transactions above ₹50,000 require OTP verification.",
+    "🔒 User data is encrypted using AES-256 standards.",
+    "📅 Accounts inactive for 12 months may be flagged for review.",
+    "💳 Debit card PIN must be updated every 6 months.",
+    "📞 24/7 fraud reporting hotline is available for all users.",
+    "🛡️ SmartBanking complies with RBI digital banking guidelines.",
+    "📄 Loan approvals require verified income documentation.",
+    "🔐 Passwords must be at least 8 characters with a special symbol.",
+    "📍 Branch visits are optional for most account services.",
+    "📧 Email alerts are sent for every transaction above ₹10,000."
+  ];
 
   userId: number = 0;
   accountType: string = '';
   accountdata: any;
   token: string = '';
   viewdetails: any[] = [];
+
   showProfile = false;
- showTransfer=false;
- showDeposit=false;
- showTransactions=false;
+  showTransfer = false;
+  showDeposit = false;
+  showTransactions = false;
   showWithdraw = false;
-  display=false;
+  showPolicies = false;
+
   constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
   ngOnInit() {
@@ -36,9 +76,9 @@ export class Userprofile implements OnInit {
 
     this.route.queryParams.subscribe(params => {
       this.accountType = params['accountType'] || '';
-      this.token = localStorage.getItem('token')||'';
-localStorage.setItem('token', this.token);
-console.log(localStorage.getItem('token'));
+      this.token = localStorage.getItem('token') || '';
+      localStorage.setItem('token', this.token);
+      console.log('Token:', this.token);
 
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
@@ -47,58 +87,56 @@ console.log(localStorage.getItem('token'));
 
       const url = `http://localhost:8080/api/accounts/${this.userId}`;
 
-      this.http.get(url, {headers}).subscribe({
-        next: (res:any) => {
+      this.http.get(url, { headers }).subscribe({
+        next: (res: any) => {
           this.accountdata = res;
-
-          console.log("hello fetched with response");
+          console.log("✅ Account data fetched successfully");
         },
         error: (err) => {
-          
-          alert("err")
+          alert("Error fetching account data");
           console.error('❌ KYC PENDING', err);
         }
       });
     });
   }
 
-  loadProfile() {
-    this.showProfile = true;
-               this.showTransfer=false;
-               this.showDeposit=false;
-    this.showTransactions=false;
-     this.showWithdraw = false;
-
-  }
-  loadTransactions(){
-this.showTransactions=true;
-     this.showTransfer=false;
-        this.showProfile=false;
-        this.showDeposit=false;
-         this.showWithdraw = false;
-  }
-  deposit(){
-this.showTransfer=false;
-        this.showProfile=false;
-        this.showDeposit=true;
-        this.showTransactions=false;
-                 this.showWithdraw = false;
-
-  }
-  Transfer(){
-        this.showTransfer=true;
-        this.showProfile=false;
-        this.showDeposit=false;
-        this.showTransactions=false;
-                 this.showWithdraw = false;
-
-  }
-  withdraw() {
+  resetViews() {
     this.showProfile = false;
     this.showTransfer = false;
     this.showDeposit = false;
-    this.showWithdraw = true;
     this.showTransactions = false;
+    this.showWithdraw = false;
+    this.showPolicies = false;
+  }
+
+  loadProfile() {
+    this.resetViews();
+    this.showProfile = true;
+  }
+
+  loadTransactions() {
+    this.resetViews();
+    this.showTransactions = true;
+  }
+
+  deposit() {
+    this.resetViews();
+    this.showDeposit = true;
+  }
+
+  Transfer() {
+    this.resetViews();
+    this.showTransfer = true;
+  }
+
+  withdraw() {
+    this.resetViews();
+    this.showWithdraw = true;
+  }
+
+  loadPolicies() {
+    this.resetViews();
+    this.showPolicies = true;
   }
 
   vie(view: Viewprofile) {
