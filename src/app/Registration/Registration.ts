@@ -40,9 +40,7 @@ export class Registration {
 
     this.http.post(url, body, { headers }).subscribe({
       next: (response: any) => {
-        console.log(response)
         if (response.id && response.id !== -1) {
-          console.log('✅ Registration successful:', response);
           alert('Registered successfully. User ID: ' + response.id);
 
           localStorage.setItem('token', response.token);

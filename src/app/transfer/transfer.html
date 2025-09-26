@@ -1,9 +1,9 @@
 <form type="submit">
   <label>To Account ID:</label>
-  <input [(ngModel)]="toAccountId" name="toAccountId" type="number"/>
+  <input [(ngModel)]="toAccountNumber" name="toAccountNumber" type="text"/>
 
   <label>Amount:</label>
   <input [(ngModel)]="amount" name="amount" type="number" />
 
-  <button type="button" (click)="transff()">SEND</button>
+  <button  (click)="transff()">SEND</button>
 </form>

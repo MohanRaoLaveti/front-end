@@ -33,12 +33,11 @@ export class Userprofile implements OnInit {
 
   ngOnInit() {
     this.userId = Number(this.route.snapshot.paramMap.get('id'));
-
+localStorage.setItem('userid',this.userId.toString());
     this.route.queryParams.subscribe(params => {
       this.accountType = params['accountType'] || '';
       this.token = localStorage.getItem('token')||'';
 localStorage.setItem('token', this.token);
-console.log(localStorage.getItem('token'));
 
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
@@ -50,8 +49,7 @@ console.log(localStorage.getItem('token'));
       this.http.get(url, {headers}).subscribe({
         next: (res:any) => {
           this.accountdata = res;
-
-          console.log("hello fetched with response");
+        
         },
         error: (err) => {
           

@@ -30,7 +30,7 @@ export class DepositComponent implements OnInit {
   }
  
   depositFunds() {
-    if (this.amount <= 0 || !this.accountId || !this.token) {
+    if (this.amount <= 0 || !this.accountId || !this.token ||this.amount>=50000) {
       this.statusMessage = '⚠️ Enter a valid amount and ensure account ID and token are set.';
       return;
     }

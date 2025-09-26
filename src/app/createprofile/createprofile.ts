@@ -41,9 +41,7 @@ export class Createprofile implements OnInit {
 
     this.profile.user.id = userId;
     this.token = tokenParam ?? '';
-    console.log('🆔 User ID:', this.profile.user.id);
-    console.log('🔐 Token:', this.token);
-    console.log(this.profile);
+    
   }
  onSubmit() {
   const profileUrl = `http://localhost:8080/api/customer/profile/create`;
@@ -80,7 +78,7 @@ export class Createprofile implements OnInit {
             alert("Error fetching profile.");
           }
         });
-      }, 15000);
+      }, 30000);
     },
     error: (er) => {
       console.error('❌ Profile creation failed:', er);

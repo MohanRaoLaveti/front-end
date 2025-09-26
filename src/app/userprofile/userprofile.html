@@ -27,10 +27,12 @@
 </div>
 
 <div *ngIf="showProfile" class="view1">
-  <app-viewprofile #view></app-viewprofile>
+ 
+  <app-viewprofile ></app-viewprofile>
 </div>
 <div *ngIf="showTransfer" class="view1">
-<app-transfer [fromAccountId]="accountdata[0].id" [token]="token"></app-transfer>
+  
+<app-transfer [fromAccountNumber]="accountdata[0].accountNumber" ></app-transfer>
 </div>
 <div *ngIf="showDeposit" class="view1">
   <app-deposit [accountId]="accountdata[0].id"  ></app-deposit>
