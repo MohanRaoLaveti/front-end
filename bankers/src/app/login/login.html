@@ -1,15 +1,17 @@
+<div class="position-absolute top-50 start-50 translate-middle w-100" style="max-width: 400px;">
+  <form [formGroup]="loginForm" (ngSubmit)="onsubmit()" class="d-flex flex-column border p-4 rounded shadow bg-light">
+    <h4 class="text-center mb-4">Login</h4>
 
-<div>
+    <div class="mb-3">
+      <label for="username" class="form-label">Username</label>
+      <input id="username" type="text" formControlName="username" class="form-control" placeholder="Enter username" />
+    </div>
 
-    <form [formGroup]="loginForm"  (ngSubmit)="onsubmit()">
-        <label for="username">
-            UserNmae
-        </label>
-        <input id="username" type="text"  formControlName="username"/>
-        <label for="password">
-            Password
-        </label>
-        <input id="password" type="password"  formControlName="password"/>
-        <button type="submit" id="button">Login</button>
-    </form>
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input id="password" type="password" formControlName="password" class="form-control" placeholder="Enter password" />
+    </div>
+
+    <button type="submit" id="button" class="btn btn-primary w-100">Login</button>
+  </form>
 </div>

@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { Profiles } from "../profiles/profiles";
 
 @Component({
   selector: 'app-kyc-updates',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, Profiles],
   templateUrl: './kyc-updates.html',
   styleUrls: ['./kyc-updates.css']
 })
 export class KycUpdates implements OnInit {
   customerProfiles: any[] = [];
-
+  
   constructor(private http: HttpClient) {}
   headers:any
   ngOnInit(): void {

@@ -4,10 +4,9 @@ import { concatAll } from 'rxjs';
 import { KycUpdates } from "../kyc-updates/kyc-updates";
 import { CommonModule } from '@angular/common';
 import { SearchAccount } from "../search-account/search-account";
-import { Navbar } from "../navbar/navbar";
 @Component({
   selector: 'app-dashboard',
-  imports: [KycUpdates, CommonModule, SearchAccount, Navbar],
+  imports: [KycUpdates, CommonModule, SearchAccount],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })

@@ -1,19 +1,28 @@
-<app-navbar></app-navbar>
-<p>dashboard works!</p>
-<p>{{id}}</p>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+  <a class="navbar-brand" href="#">Banker Portal</a>
+  <div class="ms-auto">
+    <button class="btn btn-outline-light" >Logout</button>
+  </div>
+</nav>
+<div class="container-fluid mt-3">
+      <div class="row">
+    <!-- Sidebar buttons -->
+    <div class="col-md-3">
+      <div class="d-flex flex-column">
+        <button class="btn btn-info mb-2" (click)="displayFunction('dashboard')">Dashboard</button>
+        <button class="btn btn-info mb-2" (click)="displayFunction('kyc')">Kyc Updates</button>
+        <button class="btn btn-info mb-2" (click)="displayFunction('searchAccount')">Search Account</button>
+      </div>
+    </div>
 
-
-<button (click)="displayFunction('kyc')">KycUpdates</button>
-<button (click)="displayFunction('searchAccount')">Search Account</button>
-<hr/>
-<div *ngIf="display === 'kyc'">
-      <app-kyc-updates ></app-kyc-updates>
-</div>
-<div *ngIf="display==='searchAccount'">
-      <app-search-account></app-search-account>
-      
-</div>
-
-<div>
-
+    <!-- Main content area -->
+    <div class="col-md-9">
+      <div *ngIf="display === 'kyc'">
+        <app-kyc-updates></app-kyc-updates>
+      </div>
+      <div *ngIf="display === 'searchAccount'">
+        <app-search-account></app-search-account>
+      </div>
+    </div>
+  </div>
 </div>

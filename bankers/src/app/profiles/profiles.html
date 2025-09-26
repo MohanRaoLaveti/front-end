@@ -1,0 +1,27 @@
+<div class="card p-4 shadow-sm mb-4">
+  <h5 class="card-title mb-3">User Profile</h5>
+
+  <ul class="list-group list-group-flush mb-3">
+    <li class="list-group-item"><strong>Name:</strong> {{ profile.fullName }}</li>
+    <li class="list-group-item"><strong>Email:</strong> {{ profile.email }}</li>
+    <li class="list-group-item"><strong>Status:</strong> {{ profile.kycStatus }}</li>
+  </ul>
+
+  <div class="d-flex gap-2">
+    <button class="btn btn-success" (click)="approve()">Approve</button>
+    <button class="btn btn-danger" (click)="reject()">Reject</button>
+
+    <!-- Dropdown Button -->
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        More Actions
+      </button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">View Details</a></li>
+        <li><a class="dropdown-item" href="#" >Send Reminder</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item text-danger" href="#" >Flag User</a></li>
+      </ul>
+    </div>
+  </div>
+</div>

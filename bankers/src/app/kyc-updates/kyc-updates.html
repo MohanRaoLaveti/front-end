@@ -1,11 +1,7 @@
-<p>kyc-updates works!</p>
-<div *ngFor="let profile of customerProfiles" class="profile-card">
-  <p><strong>Name:</strong> {{ profile.id }}</p>
-  <p><strong>Email:</strong> {{ profile.email }}</p>
-  <p><strong>Status:</strong> {{ profile.kycStatus }}</p>
-
-  <button (click)="updateKycStatus(profile.id, 'APPROVED')">Approve</button>
-  <button (click)="updateKycStatus(profile.id, 'REJECTED')">Reject</button>
-</div>
+<div *ngFor="let profile of customerProfiles" class="container-fluid bg-">
+  <app-profiles 
+    [profile]="profile" 
+    (statusChange)="updateKycStatus($event.id, $event.status)">
+  </app-profiles></div>
 
 <p></p>

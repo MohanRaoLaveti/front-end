@@ -1,0 +1,44 @@
+<div class="container mt-5">
+  <div class="card shadow p-4">
+    <h4 class="card-title mb-4 text-center">Banker Registration</h4>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <!-- Username -->
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input
+          type="text"
+          id="username"
+          formControlName="username"
+          class="form-control"
+          placeholder="Enter username"
+        />
+      </div>
+
+      <!-- Password -->
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          class="form-control"
+          placeholder="Enter password"
+        />
+      </div>
+
+      <!-- Branch Selection -->
+<div class="mb-3">
+  <label for="branch" class="form-label">Select Branch</label>
+  <select id="branch" formControlName="branchIfscCode" class="form-select">
+    <option *ngFor="let branch of branches" [value]="branch.ifscCode">
+      {{ branch.branchName }}({{ branch.ifscCode }})
+    </option>
+  </select>
+</div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-primary w-100">Register Banker</button>
+    </form>
+  </div>
+</div>
