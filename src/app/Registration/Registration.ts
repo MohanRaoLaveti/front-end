@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterOutlet],
   templateUrl: './Registration.html',
   styleUrls: ['./Registration.scss']
 })
@@ -49,7 +49,7 @@ export class Registration {
             queryParams: { token: response.token }
           });
         } else {
-          alert('⚠️ Registration failed: ' + response);
+          alert('⚠️ Registration failed: ' + "User already exists");
         }
       },
       error: (error) => {

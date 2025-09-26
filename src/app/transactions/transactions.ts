@@ -24,6 +24,7 @@ ngOnInit(){
 this.http.get(url,{headers}).subscribe({
   next:(res:any)=>{
     this.tdata=res;
+    console.log(this.tdata);
   },error:(err)=>{
     console.log(err);
   }

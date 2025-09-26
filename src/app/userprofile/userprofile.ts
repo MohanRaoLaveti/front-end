@@ -9,8 +9,6 @@ import { DepositComponent } from '../deposit/deposit';
 import { Transactions } from '../transactions/transactions';
 import { WithdrawComponent } from "../withdraw/withdraw";
 import { TransactionChartComponent } from "../transaction-chart/transaction-chart";
-import { RecentTransactionsChartComponent } from '../recent-transactions-chart/recent-transactions-chart';
-import { BalanceTrendChartComponent } from '../balance-trend-chart/balance-trend-chart';
 
 @Component({
   selector: 'app-userprofile',
@@ -19,30 +17,16 @@ import { BalanceTrendChartComponent } from '../balance-trend-chart/balance-trend
     CommonModule,
     FormsModule,
     RouterModule,
-    TransactionChartComponent,
-    RecentTransactionsChartComponent,
-    BalanceTrendChartComponent
+    Viewprofile,
+    Transfer,
+    DepositComponent,
+    Transactions,
+    WithdrawComponent
   ],
   templateUrl: './userprofile.html',
   styleUrls: ['./userprofile.scss']
 })
 export class Userprofile implements OnInit {
-  recentTransactions = [
-    { date: 'Sep 20', amount: 5000 },
-    { date: 'Sep 21', amount: -1200 },
-    { date: 'Sep 22', amount: 3000 },
-    { date: 'Sep 23', amount: -800 },
-    { date: 'Sep 24', amount: 1500 }
-  ];
-
-  balanceHistory = [
-    { date: 'Sep 20', balance: 10000 },
-    { date: 'Sep 21', balance: 8800 },
-    { date: 'Sep 22', balance: 11800 },
-    { date: 'Sep 23', balance: 11000 },
-    { date: 'Sep 24', balance: 12500 }
-  ];
-
   policies: string[] = [
     "✅ All transactions above ₹50,000 require OTP verification.",
     "🔒 User data is encrypted using AES-256 standards.",
@@ -68,16 +52,20 @@ export class Userprofile implements OnInit {
   showTransactions = false;
   showWithdraw = false;
   showPolicies = false;
+  showDashboard: any;
+
+  highlightedPolicy: { label: string; message: string } | null = null;
 
   constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
   ngOnInit() {
     this.userId = Number(this.route.snapshot.paramMap.get('id'));
-localStorage.setItem('userid',this.userId.toString());
+    localStorage.setItem('userid', this.userId.toString());
+
     this.route.queryParams.subscribe(params => {
       this.accountType = params['accountType'] || '';
-      this.token = localStorage.getItem('token')||'';
-localStorage.setItem('token', this.token);
+      this.token = localStorage.getItem('token') || '';
+      localStorage.setItem('token', this.token);
 
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
@@ -89,7 +77,29 @@ localStorage.setItem('token', this.token);
       this.http.get(url, { headers }).subscribe({
         next: (res: any) => {
           this.accountdata = res;
-        
+
+          const balance = this.accountdata[0]?.balance || 0;
+          if (balance < 10000) {
+            this.highlightedPolicy = {
+              label: "💡 Maintain Minimum Balance",
+              message: "Your balance is below ₹10,000. Avoid penalties by maintaining the minimum required balance."
+            };
+          } else if (balance < 100000) {
+            this.highlightedPolicy = {
+              label: "📈 Eligible for SmartSaver Plan",
+              message: "You qualify for our SmartSaver plan with 4.5% interest and zero ATM fees."
+            };
+          } else if (balance < 500000) {
+            this.highlightedPolicy = {
+              label: "💼 Premium Banking Benefits",
+              message: "Unlock premium support, higher withdrawal limits, and cashback offers."
+            };
+          } else {
+            this.highlightedPolicy = {
+              label: "🏦 Wealth Management Advisory",
+              message: "You’re eligible for personalized investment guidance and portfolio tracking."
+            };
+          }
         },
         error: (err) => {
           alert("Error fetching account data");
