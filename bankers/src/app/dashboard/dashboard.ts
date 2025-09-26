@@ -39,5 +39,8 @@ export class Dashboard implements OnInit{
       console.log(this.display)
   }
 
-
+  logOut(){
+    localStorage.removeItem('accessToken');
+    this.router.navigate(['/login'])
+  }
 }
