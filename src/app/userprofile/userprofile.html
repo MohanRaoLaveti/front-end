@@ -7,31 +7,39 @@
     <a (click)="loadProfile()" class="profile-link">👤 View Profile</a>
   </div>
 </nav>
-
-<!-- Main Dashboard -->
-<div class="dashboard-layout">
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <h3>Welcome, {{ accountdata[0]?.user?.username }} 👋</h3>
-    <p><strong>Account Number:</strong> {{ accountdata[0]?.accountNumber }}</p>
-    <p><strong>Type:</strong> {{ accountdata[0]?.accountType }}</p>
-    <p><strong>Balance:</strong> ₹{{ accountdata[0]?.balance }}</p>
-
-    <nav class="sidebar-nav">
-      <a (click)="Transfer()" class="nav-link">💸 Transfer</a>
-      <a (click)="deposit()" class="nav-link">💰 Deposit</a>
-      <a (click)="withdraw()" class="nav-link">🏧 Withdraw</a>
-<a (click)="loadPolicies()" class="nav-link">📜 Policies</a>
-      <a (click)="loadTransactions()" class="nav-link">📄 Transactions</a>
-    </nav>
-  </aside>
-
-  <!-- Chart Panel -->
- <!-- Chart Panel -->
-<section class="chart-panel" >
-  <app-recent-transactions-chart [transactions]="recentTransactions"></app-recent-transactions-chart>
-  <app-balance-trend-chart [balanceHistory]="balanceHistory"></app-balance-trend-chart>
-</section>
+<div *ngIf="!accountdata?.length;else dis"><h1>KYC PENDING</h1></div>
+<ng-template #dis>
+<div *ngIf="accountdata?.length > 0" class="account-summary-card">
+  <h1>Welcome, {{ accountdata[0].user.username }} 👋</h1>
+  <p><strong>AccountHolder Name:</strong> {{ accountdata[0].user.username }}</p>
+  <p><strong>AccountNumber:</strong> {{ accountdata[0].accountNumber }}</p>
+  <p><strong>AccountType:</strong> {{ accountdata[0].accountType }}</p>
+  <p><strong>AccountBalance:</strong> ₹{{ accountdata[0].balance }}</p>
+</div>
 
 
+<div class="dashboard-panels">
+    <a (click)="Transfer()" class="mm">Transfer Funds</a>
+<a (click)="deposit()" class="mm">Deposit</a>
+  <a (click)="withdraw()" class="mm">Withdraw</a>
+  <a (click)="loadProfile()" class="mm">KYC Status</a>
+  <a (click)="loadTransactions()" class="mm">Recent Transactions</a>
+</div>
+
+<div *ngIf="showProfile" class="view1">
+ 
+  <app-viewprofile ></app-viewprofile>
+</div>
+<div *ngIf="showTransfer" class="view1">
+  
+<app-transfer [fromAccountNumber]="accountdata[0].accountNumber" ></app-transfer>
+</div>
+<div *ngIf="showDeposit" class="view1">
+  <app-deposit [accountId]="accountdata[0].id"  ></app-deposit>
+</div>
+<div *ngIf="showTransactions" class="view1">
+  <app-transactions [accountId]="accountdata[0].id"  ></app-transactions>
+</div>
+<div *ngIf="showWithdraw" class="view1">
+  <app-withdraw [accountId]="accountdata[0].id"></app-withdraw>
 </div>

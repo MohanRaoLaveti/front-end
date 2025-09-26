@@ -54,11 +54,15 @@
     </div>
   </div>
 
-  <div class="form-row">
-    <div class="form-group">
-      <label for="pincode">Pincode</label>
-      <input type="text" name="pincode" [(ngModel)]="profile.pincode" pattern="^[0-9]{6}$" placeholder="Pincode" />
-    </div>
+  <!-- Account Info -->
+  <div class="form-group">
+    <label for="kycStatus">KYC Status</label>
+    <select name="kycStatus" [(ngModel)]="profile.kycStatus">
+      <option value="PENDING">Pending</option>
+      <option value="VERIFIED">ACCEPTED</option>
+      <option value="REJECTED">Rejected</option>
+    </select>
+  </div>
 
     <div class="form-group">
       <label for="accountType">Account Type <span class="required">*</span></label>

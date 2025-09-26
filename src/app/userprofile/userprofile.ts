@@ -73,12 +73,11 @@ export class Userprofile implements OnInit {
 
   ngOnInit() {
     this.userId = Number(this.route.snapshot.paramMap.get('id'));
-
+localStorage.setItem('userid',this.userId.toString());
     this.route.queryParams.subscribe(params => {
       this.accountType = params['accountType'] || '';
-      this.token = localStorage.getItem('token') || '';
-      localStorage.setItem('token', this.token);
-      console.log('Token:', this.token);
+      this.token = localStorage.getItem('token')||'';
+localStorage.setItem('token', this.token);
 
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
@@ -90,7 +89,7 @@ export class Userprofile implements OnInit {
       this.http.get(url, { headers }).subscribe({
         next: (res: any) => {
           this.accountdata = res;
-          console.log("✅ Account data fetched successfully");
+        
         },
         error: (err) => {
           alert("Error fetching account data");
