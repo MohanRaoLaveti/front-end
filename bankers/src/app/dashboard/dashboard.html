@@ -1,0 +1,19 @@
+<app-navbar></app-navbar>
+<p>dashboard works!</p>
+<p>{{id}}</p>
+
+
+<button (click)="displayFunction('kyc')">KycUpdates</button>
+<button (click)="displayFunction('searchAccount')">Search Account</button>
+<hr/>
+<div *ngIf="display === 'kyc'">
+      <app-kyc-updates ></app-kyc-updates>
+</div>
+<div *ngIf="display==='searchAccount'">
+      <app-search-account></app-search-account>
+      
+</div>
+
+<div>
+
+</div>

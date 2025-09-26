@@ -1,0 +1,11 @@
+<p>search-account works!</p>
+<form >
+    <label for="accountNumber">Enter Account Number</label>
+    <input  [(ngModel)]="accountNumber" name="accountNumber"   type="text"/>
+    <button (click)="searchAccount()" >Search</button>
+</form>
+
+<div *ngIf="display==true">
+    <p>accountNumber:{{account.accountNumber}}</p>
+    <p>balance:{{account.balance}}</p>
+</div>

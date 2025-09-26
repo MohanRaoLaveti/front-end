@@ -1,0 +1,42 @@
+import { HttpClient } from '@angular/common/http';
+import { Component } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router'; // 👈 Import Angular's Router
+
+@Component({
+  selector: 'app-login',
+  standalone: true, // Assuming standalone component based on the `imports` array
+  imports: [ReactiveFormsModule],
+  templateUrl: './login.html',
+  styleUrl: './login.css'
+})
+export class Login {
+  loginForm = new FormGroup({
+    username: new FormControl(''),
+    password: new FormControl('')
+  })
+
+  // 1. Inject HttpClient AND Angular Router
+  constructor(private http: HttpClient, private router: Router) {} // 👈 Inject Router
+
+  onsubmit() {
+
+    this.http.post("http://localhost:8080/api/auth/login", this.loginForm.value)
+      .subscribe({
+        next: (response: any) => {
+                const token = response.token
+                localStorage.setItem('accessToken', token)
+                const role=response.role
+                localStorage.setItem('role',role)
+                this.router.navigate(['/dashboard'],{
+                  state:{
+                    loginResponse:response
+                  }
+                }); // Navigate to the dashboard route
+            },
+        error: (error: any) => {
+          console.error("Login failed:", error); // Changed from "Registration failed" to "Login failed"
+        }
+      });
+  }
+}
