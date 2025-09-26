@@ -1,19 +1,112 @@
+/* Navbar */
+.brand-link {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #2c3e50;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
 
+.brand-link:hover {
+  color: #3498db;
+  cursor: pointer;
+}
 
- 
- .dashboard-panels{
-background-color: rgb(161, 142, 45);
-height: 80px;
-padding:30px;
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid #e0e0e0;
+  font-family: 'Segoe UI', sans-serif;
+}
 
- }
- .mm{background-color: rgb(17, 255, 0);
-border-radius: 10px;
-padding: 18px;
-margin-top: 20px;
-width: 20%;}
- .view1{
-    background-color: rgb(240, 243, 226);
- }
- 
- 
+.navbar-left .brand {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.navbar-right .profile-link {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #3498db;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.navbar-right .profile-link:hover {
+  background-color: #ecf5fd;
+}
+
+/* Account Summary */
+.account-summary-card {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', sans-serif;
+  color: #2c3e50;
+}
+
+.account-summary-card h1 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #34495e;
+}
+
+.account-summary-card p {
+  font-size: 1rem;
+  margin: 0.75rem 0;
+  line-height: 1.6;
+  padding: 0.6rem 1rem;
+  background-color: #f9f9f9;
+  border-left: 4px solid #3498db;
+  border-radius: 6px;
+}
+
+/* Dashboard Panels */
+.dashboard-panels {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2rem auto;
+  max-width: 700px;
+}
+
+.dashboard-panels .mm {
+  display: inline-block;
+  padding: 0.8rem 1.2rem;
+  background-color: #3498db;
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.dashboard-panels .mm:hover {
+  background-color: #2980b9;
+}
+
+/* Embedded Views */
+.view1 {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-family: 'Segoe UI', sans-serif;
+}

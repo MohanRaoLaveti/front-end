@@ -11,28 +11,37 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './transfer.scss'
 })
 export class Transfer {
-  @Input() fromAccountId: number = 0; // ✅ received from parent
-  toAccountId: number = 0;            // entered by user
-  amount: number = 0;                 // entered by user
+  @Input() fromAccountId: number = 0;
+  @Input() token: string = localStorage.getItem('token') || '';
+
+  toAccountId: number = 0;
+  amount: number = 0;
+  statusMessage: string = '';
 
   constructor(private http: HttpClient) {}
 
-@Input() token: string  = localStorage.getItem('token')||'' ;
+  transff() {
+    if (this.amount <= 0 || !this.fromAccountId || !this.toAccountId || !this.token) {
+      this.statusMessage = '⚠️ Please enter valid account IDs and amount.';
+      return;
+    }
 
-transff() {
-  // alert(this.token)
- 
-  const headers = new HttpHeaders({
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${this.token}` // ✅ include token
-  });
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.token}`
+    });
 
-   const url = `http://localhost:8080/api/transactions/transfer?fromAccountId=${this.fromAccountId}&toAccountId=${this.toAccountId}&amount=${this.amount}`;
+    const url = `http://localhost:8080/api/transactions/transfer?fromAccountId=${this.fromAccountId}&toAccountId=${this.toAccountId}&amount=${this.amount}`;
 
-console.log(typeof(this.fromAccountId))
-  this.http.post(url,null,{ headers }).subscribe({
-    next: (res) => console.log('✅ Transfer successful:', res),
-    error: (err) => console.error('❌ Transfer failed:', err)
-  });
-}
+    this.http.post(url, null, { headers }).subscribe({
+      next: (res: any) => {
+        this.statusMessage = `✅ ₹${res[0].amount} transferred successfully from account ${res[0].account.accountNumber} to ${res[1].account.accountNumber}.`;
+        alert("Amount transferred successfully");
+      },
+      error: (err) => {
+        console.error('❌ Transfer failed:', err);
+        this.statusMessage = `❌ Transfer failed: ${err.status} ${err.statusText}`;
+      }
+    });
+  }
 }

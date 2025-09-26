@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
@@ -16,48 +16,54 @@ export class LoginComponent {
   password = '';
   statusMessage = '';
 
-  constructor(private http: HttpClient, private router: Router, private ngZone: NgZone) {}
-saveDataAndLogin() {
-  const userData = { username: this.username, password: this.password };
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private ngZone: NgZone
+  ) {}
 
-  this.http.post('http://localhost:8080/api/auth/login', userData).subscribe({
-    next: (res: any) => {
-      console.log(res);
-      if (res.id && res.token) {
-        this.ngZone.run(() => {
-          this.http.get(`http://localhost:8080/api/accounts/${res.id}`, {
-  headers: {
-    Authorization: `Bearer ${res.token}`
-  }
-}).subscribe({
-            next: (rr: any) => {
-              this.router.navigate(['/app-userprofile', res.id], {
-                queryParams: {
-                  token: res.token,
-                  accountType: rr.accountType
-                }
-              });
-            },
-            error: (err:any) => {
-              console.error('Account fetch failed:', err);
-              this.statusMessage = '❌ Failed to fetch account details.';
-              alert('Unable to retrieve account info.');
-            }
+  saveDataAndLogin() {
+    const userData = { username: this.username, password: this.password };
+
+    this.http.post('http://localhost:8080/api/auth/login', userData).subscribe({
+      next: (res: any) => {
+        console.log('Login response:', res);
+
+        if (res.id && res.token) {
+          const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${res.token}`
           });
-        });
-      } else {
-        this.statusMessage = '⚠️ Login response invalid. Please check credentials.';
+
+          this.ngZone.run(() => {
+            this.http.get(`http://localhost:8080/api/accounts/${res.id}`, { headers }).subscribe({
+              next: (rr: any) => {
+                console.log('Account response:', rr);
+                  this.router.navigate(['/app-userprofile',res.id]);
+                
+              
+              },
+              error: (err: any) => {
+                console.error('Account fetch failed:', err);
+                this.statusMessage = '❌ Failed to fetch account details.';
+                alert('Unable to retrieve account info.');
+              }
+            });
+          });
+        } else {
+          this.statusMessage = '⚠️ Login response invalid. Please check credentials.';
+          alert('Sorry, you are not authorized.');
+        }
+      },
+      error: (err) => {
+        console.error('Login failed:', err);
+        if (err.status === 401) {
+          this.statusMessage = '❌ Invalid username or password.';
+        } else {
+          this.statusMessage = '❌ Login failed due to server error.';
+        }
         alert('Sorry, you are not authorized.');
       }
-    },
-    error: (err) => {
-      if (err.status === 401) {
-        this.statusMessage = '❌ Invalid username or password.';
-      } else {
-        this.statusMessage = '❌ Login failed due to server error.';
-      }
-      alert('Sorry, you are not authorized.');
-    }
-  });
-}
+    });
+  }
 }

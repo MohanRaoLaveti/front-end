@@ -41,43 +41,51 @@ export class Createprofile implements OnInit {
 
     this.profile.user.id = userId;
     this.token = tokenParam ?? '';
-
     console.log('🆔 User ID:', this.profile.user.id);
     console.log('🔐 Token:', this.token);
+    console.log(this.profile);
   }
-meythod(){}
-  onSubmit() {
-    const profileUrl = 'http://localhost:8080/api/customer/profile/create';
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.token}`
-    });
+ onSubmit() {
+  const profileUrl = `http://localhost:8080/api/customer/profile/create`;
+  const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${this.token}`
+  });
 
-    console.log('📦 Creating profile:', this.profile);
+  this.http.post(profileUrl, this.profile, { headers }).subscribe({
+    next: (res) => {
+      const url = `http://localhost:8080/api/customer/profile/${this.profile.user.id}`;
+      
+      const intervalId = setInterval(() => {
+        this.http.get(url, { headers }).subscribe({
+          next: (res1: any) => {
+            console.log("✅ Fetched customer details:", res1);
 
-    this.http.post(profileUrl, this.profile, { headers }).subscribe({
-      next: () => {
-        const openAccountUrl = `http://localhost:8080/api/accounts/open/${this.profile.user.id}?accountType=${this.accountType}`;
-this.meythod();
-        this.http.post(openAccountUrl, null, { headers }).subscribe({
-          next: (accountResponse: any) => {
-            console.log('🏦 Account opened:', accountResponse);
-            alert('Account opened successfully! Account Number: ' + accountResponse.accountNumber);
+            if (res1.kycStatus === "APPROVED") {
+              alert("🎉 KYC Approved!");
+    const openAccountUrl = `http://localhost:8080/api/accounts/open/${this.profile.user.id}/COIM05678901?accountType=${this.accountType}`;
+    this.http.post(openAccountUrl,null,{headers}).subscribe({
+      next:(ress:any)=>{console.log(ress);
+        this.router.navigate(['/app-userprofile',this.profile.user.id])
+      },error:(e)=>{console.log(e);}
+    })
 
-            this.router.navigate(['/app-userprofile', this.profile.user.id], {
-              queryParams: { accountType: this.accountType ,token:this.token}
-            });
+              clearInterval(intervalId);
+              
+
+            }
           },
-          error: (error) => {
-            console.error('❌ Account opening failed:', error);
-            alert('Failed to open account.');
+          error: (err) => {
+            console.error("❌ Error fetching profile:", err);
+            alert("Error fetching profile.");
           }
         });
-      },
-      error: (error) => {
-        console.error('❌ Profile creation failed:', error);
-        alert('Failed to create profile.');
-      }
-    });
-  }
+      }, 15000);
+    },
+    error: (er) => {
+      console.error('❌ Profile creation failed:', er);
+      alert('Failed to create profile.');
+    }
+  });
+}
 }
