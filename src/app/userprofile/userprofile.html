@@ -30,6 +30,7 @@
         <a (click)="withdraw()" class="nav-link">Withdraw</a>
         <a (click)="loadProfile()" class="nav-link">View Profile</a>
         <a (click)="loadTransactions()" class="nav-link">Transactions</a>
+        <a (click)="loadDashboard()" class="nav-link">Dashboard</a>
       </nav>
       
 
@@ -46,15 +47,18 @@
       <div *ngIf="showDeposit">
         <app-deposit [accountId]="accountdata[0].id"></app-deposit>
       </div>
+      <div *ngIf="showDashboard">
+        <app-dashboard [accountId]="accountdata[0].id"></app-dashboard>
+      </div>
       <div *ngIf="showWithdraw">
         <app-withdraw [accountId]="accountdata[0].id"></app-withdraw>
       </div>
       <div *ngIf="showTransactions">
         <app-transactions [accountId]="accountdata[0].id"></app-transactions>
       </div>
-
+      
       <!-- Default Welcome Panel -->
-      <div *ngIf="!showProfile && !showTransfer && !showDeposit && !showWithdraw && !showTransactions" class="welcome-panel">
+      <div *ngIf="!showProfile && !showTransfer && !showDeposit && !showWithdraw && !showTransactions && !showDashboard" class="welcome-panel">
         <h2>Welcome, {{ accountdata[0].user.username }} 👋</h2>
         <p>Here’s a quick look at your account:</p>
 

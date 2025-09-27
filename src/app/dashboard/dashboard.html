@@ -1,0 +1,30 @@
+<h2>Transactions for Account {{ accountId }}</h2>
+
+<div *ngIf="isLoading">Loading transactions...</div>
+<div *ngIf="errorMessage">{{ errorMessage }}</div>
+<canvas baseChart
+  [data]="chartDataSet"
+  [options]="chartOptions"
+  [type]="chartType">
+</canvas>
+
+<table *ngIf="!isLoading && transactions.length > 0">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Amount</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let tx of transactions">
+      <td>{{ tx.timestamp | date:'short' }}</td>
+      <td>{{ tx.amount }}</td>
+      <td>{{ tx.type }}</td>
+      <td>{{ tx.description }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<p *ngIf="!isLoading && transactions.length === 0">No transactions found.</p>

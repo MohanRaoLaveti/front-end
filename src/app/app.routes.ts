@@ -10,6 +10,7 @@ import { Viewprofile } from './viewprofile/viewprofile';
 import { Transfer } from './transfer/transfer';
 import { DepositComponent } from './deposit/deposit';
 import { WithdrawComponent } from './withdraw/withdraw';
+import { Dashboard } from './dashboard/dashboard';
 
 export const routes: Routes = [
   { path: 'Registration', component: Registration },
@@ -25,5 +26,5 @@ export const routes: Routes = [
     component: WithdrawComponent
   },
     {path:'profile/deposit',component:DepositComponent},
-
+  { path: 'dashboard', component: Dashboard },
 ];

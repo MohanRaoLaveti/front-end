@@ -18,10 +18,13 @@ export class Transfer {
   amount: number = 0;
   statusMessage: string = '';
 
-  constructor(private http: HttpClient) {}transff() {
+  constructor(private http: HttpClient) {}
+  transff() {
+
+    
   if (!this.fromAccountNumber || !this.toAccountNumber || this.amount <= 0 ||this.amount>10000) {
     this.statusMessage = '⚠️ Please enter valid account numbers and amount.';
-    alert( '⚠️ Please enter valid account numbers and amount.');
+    alert( '⚠️ Please enter valid account numbers and amount.'+this.toAccountNumber);
     return;
   }
 
@@ -30,7 +33,7 @@ export class Transfer {
     'Authorization': `Bearer ${this.token}`
   });
 
-  const url = `http://localhost:8080/api/transactions/transfer`;
+  const url = "http://localhost:8080/api/transactions/transfer";
 
   const body = {
     fromAccountNumber: this.fromAccountNumber,

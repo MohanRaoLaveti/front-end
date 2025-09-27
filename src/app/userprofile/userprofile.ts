@@ -8,7 +8,7 @@ import { Transfer } from '../transfer/transfer';
 import { DepositComponent } from '../deposit/deposit';
 import { Transactions } from '../transactions/transactions';
 import { WithdrawComponent } from "../withdraw/withdraw";
-import { TransactionChartComponent } from "../transaction-chart/transaction-chart";
+import { Dashboard } from "../dashboard/dashboard";
 
 @Component({
   selector: 'app-userprofile',
@@ -21,8 +21,9 @@ import { TransactionChartComponent } from "../transaction-chart/transaction-char
     Transfer,
     DepositComponent,
     Transactions,
-    WithdrawComponent
-  ],
+    WithdrawComponent,
+    Dashboard
+],
   templateUrl: './userprofile.html',
   styleUrls: ['./userprofile.scss']
 })
@@ -52,7 +53,8 @@ export class Userprofile implements OnInit {
   showTransactions = false;
   showWithdraw = false;
   showPolicies = false;
-  showDashboard: any;
+  showDashboard=false;
+  //showDashboard: any;
 
   highlightedPolicy: { label: string; message: string } | null = null;
 
@@ -116,6 +118,7 @@ export class Userprofile implements OnInit {
     this.showTransactions = false;
     this.showWithdraw = false;
     this.showPolicies = false;
+    this.showDashboard=false;
   }
 
   loadProfile() {
@@ -146,6 +149,11 @@ export class Userprofile implements OnInit {
   loadPolicies() {
     this.resetViews();
     this.showPolicies = true;
+  }
+
+  loadDashboard(){
+      this.resetViews();
+      this.showDashboard=true;
   }
 
   vie(view: Viewprofile) {
