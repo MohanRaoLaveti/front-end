@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { concatAll } from 'rxjs';
 import { KycUpdates } from "../kyc-updates/kyc-updates";
 import { CommonModule } from '@angular/common';
 import { SearchAccount } from "../search-account/search-account";
+import { Bankerdashboard } from "../bankerdashboard/bankerdashboard";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Component({
   selector: 'app-dashboard',
-  imports: [KycUpdates, CommonModule, SearchAccount],
+  imports: [KycUpdates, CommonModule, SearchAccount, Bankerdashboard],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
@@ -15,7 +16,8 @@ export class Dashboard implements OnInit{
   userToken: string | null = null;
   id!:number
   display=""
-  constructor(private router: Router) {
+  banker:any;
+  constructor(private router: Router,private http:HttpClient) {
     // Access the state immediately in the constructor or use in ngOnInit
     // history.state is a standard browser API object
     if (this.router.getCurrentNavigation()?.extras.state) {
@@ -28,6 +30,22 @@ export class Dashboard implements OnInit{
       console.log('Data received from login:', this.loginData);
       this.userToken = this.loginData.token;
       this.id=this.loginData.id;
+      //BANKERDATA
+      const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.userToken}`
+    });
+      this.http.get(`http://localhost:8080/api/banker/bankerData/${this.id}`, {headers})
+      .subscribe({
+        next: (response: any) => {
+          
+            this.banker=response;
+            console.log(this.banker);
+            },
+        error: (error: any) => {
+          console.error("Login failed:", error); 
+        }
+      });
+      
       // You can now use the data to initialize the dashboard
     } else {
       console.warn('No login state data found. User may have navigated directly.');

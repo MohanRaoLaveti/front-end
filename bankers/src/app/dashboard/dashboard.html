@@ -17,12 +17,16 @@
 
     <!-- Main content area -->
     <div class="col-md-9">
+      <div *ngIf="display === 'dashboard'">
+        <app-bankerdashboard [bankerData]="banker"></app-bankerdashboard>
+      </div>
       <div *ngIf="display === 'kyc'">
         <app-kyc-updates></app-kyc-updates>
       </div>
       <div *ngIf="display === 'searchAccount'">
         <app-search-account></app-search-account>
       </div>
+    
     </div>
   </div>
 </div>
