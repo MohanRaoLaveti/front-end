@@ -30,7 +30,6 @@
         <a (click)="withdraw()" class="nav-link">Withdraw</a>
         <a (click)="loadProfile()" class="nav-link">View Profile</a>
         <a (click)="loadTransactions()" class="nav-link">Transactions</a>
-        <a (click)="loadDashboard()" class="nav-link">Dashboard</a>
       </nav>
       
 
@@ -58,44 +57,49 @@
       </div>
       
       <!-- Default Welcome Panel -->
-      <div *ngIf="!showProfile && !showTransfer && !showDeposit && !showWithdraw && !showTransactions && !showDashboard" class="welcome-panel">
-        <h2>Welcome, {{ accountdata[0].user.username }} 👋</h2>
-        <p>Here’s a quick look at your account:</p>
+     <!-- Default Welcome Panel -->
+<div *ngIf="!showProfile && !showTransfer && !showDeposit && !showWithdraw && !showTransactions && !showDashboard" class="welcome-panel">
+  <h2>Welcome, {{ accountdata[0].user.username }} 👋</h2>
+  <p>Here’s a quick look at your account:</p>
 
-        <div class="summary-grid">
-          <div class="summary-card">
-            <h4>Account Type</h4>
-            <p>{{ accountdata[0].accountType }}</p>
-          </div>
-          <div class="summary-card">
-            <h4>Account Number</h4>
-            <p>{{ accountdata[0].accountNumber }}</p>
-          </div>
-          <div class="summary-card">
-            <h4>Current Balance</h4>
-            <p>₹{{ accountdata[0].balance }}</p>
-          </div>
-        </div>
-        <div class="suggestions">
-  <h3>Suggestions for You</h3>
-  <ul>
-    <li>📈 Set a monthly savings goal to track progress.</li>
-    <li>🔍 Review your last 5 transactions for accuracy.</li>
-    <li>🛡️ Enable two-factor authentication for added security.</li>
-  </ul>
+  <div class="summary-grid">
+    <div class="summary-card">
+      <h4>Account Type</h4>
+      <p>{{ accountdata[0].accountType }}</p>
+    </div>
+    <div class="summary-card">
+      <h4>Account Number</h4>
+      <p>{{ accountdata[0].accountNumber }}</p>
+    </div>
+    <div class="summary-card">
+      <h4>Current Balance</h4>
+      <p>₹{{ accountdata[0].balance }}</p>
+    </div>
+  </div>
+
+  <!-- 👇 Dashboard Chart Component -->
+  <app-dashboard [accountId]="accountdata[0].id"></app-dashboard>
+
+  <!-- 👇 Suggestions and Tips moved below chart -->
+  <div class="suggestions">
+    <h3>Suggestions for You</h3>
+    <ul>
+      <li>📈 Set a monthly savings goal to track progress.</li>
+      <li>🔍 Review your last 5 transactions for accuracy.</li>
+      <li>🛡️ Enable two-factor authentication for added security.</li>
+    </ul>
+  </div>
+
+  <div class="smart-tips">
+    <h3>Smart Tips 💡</h3>
+    <ul>
+      <li>🔒 Never share your OTP or password.</li>
+      <li>💳 Update your debit card PIN every 6 months.</li>
+      <li>📈 Monitor your balance trends weekly.</li>
+    </ul>
+  </div>
 </div>
-        <div class="smart-tips">
-          <h3>Smart Tips 💡</h3>
-          <ul>
-            <li>🔒 Never share your OTP or password.</li>
-            <li>💳 Update your debit card PIN every 6 months.</li>
-            <li>📈 Monitor your balance trends weekly.</li>
-          </ul>
-        </div>
 
-
-
-      </div>
     </section>
   </div>
 </ng-template>

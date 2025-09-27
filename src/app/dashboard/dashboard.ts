@@ -20,7 +20,8 @@ export class Dashboard implements OnChanges {
   chartLabels: string[] = [];
   chartData: number[] = [];
 
-chartType: ChartType = 'line';  chartDataSet: any;
+  chartType: ChartType = 'line';
+  chartDataSet: any;
   chartOptions: any;
 
   constructor(private transactionService: TransactionService) {}
@@ -55,7 +56,14 @@ chartType: ChartType = 'line';  chartDataSet: any;
     this.chartData = [];
 
     for (const tx of sorted) {
-      const timeLabel = new Date(tx.timestamp).toLocaleTimeString();
+      const timeLabel = new Date(tx.timestamp).toLocaleString('en-IN', {
+        day: '2-digit',
+        month: 'short',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+      });
+
       const amount = tx.type === 'DEPOSIT' ? tx.amount : -tx.amount;
       balance += amount;
 
@@ -69,11 +77,11 @@ chartType: ChartType = 'line';  chartDataSet: any;
         {
           data: this.chartData,
           label: 'Account Balance Over Time',
-          borderColor: '#1E88E5',
-          backgroundColor: 'rgba(66,165,245,0.2)',
-          pointBackgroundColor: '#1E88E5',
-          pointBorderColor: '#1E88E5',
-          fill: false,
+          borderColor: '#00796B',
+          backgroundColor: 'rgba(0,150,136,0.2)',
+          pointBackgroundColor: '#00796B',
+          pointBorderColor: '#004D40',
+          fill: true,
           tension: 0.3,
           borderWidth: 2,
           pointRadius: 4
@@ -84,12 +92,46 @@ chartType: ChartType = 'line';  chartDataSet: any;
     this.chartOptions = {
       responsive: true,
       plugins: {
-        legend: { display: true },
-        tooltip: { enabled: true }
+        legend: {
+          display: true,
+          labels: {
+            color: '#333',
+            font: { size: 12, weight: 'bold' }
+          }
+        },
+        tooltip: {
+          enabled: true,
+          backgroundColor: '#f5f5f5',
+          titleColor: '#00796B',
+          bodyColor: '#333'
+        }
       },
       scales: {
-        x: { title: { display: true, text: 'Time' } },
-        y: { title: { display: true, text: 'Balance' } }
+        x: {
+          title: {
+            display: true,
+            text: 'Date & Time',
+            color: '#555',
+            font: { size: 14 }
+          },
+          ticks: {
+            color: '#444',
+            maxRotation: 45,
+            minRotation: 30
+          }
+        },
+        y: {
+          title: {
+            display: true,
+            text: 'Balance (₹)',
+            color: '#555',
+            font: { size: 14 }
+          },
+          ticks: {
+            color: '#444',
+            callback: (value: number) => `₹${value.toLocaleString('en-IN')}`
+          }
+        }
       }
     };
   }
