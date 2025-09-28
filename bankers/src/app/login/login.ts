@@ -25,10 +25,10 @@ export class Login {
     this.http.post("http://localhost:8080/api/auth/login", this.loginForm.value)
       .subscribe({
         next: (response: any) => {
-                const token = response.token
-                localStorage.setItem('accessToken', token)
-                const role=response.role
-                localStorage.setItem('role',role)
+                //Adding token and role to localstorage 
+                localStorage.setItem('accessToken', response.token)
+                localStorage.setItem('role',response.role)
+                
                 this.router.navigate(['/dashboard'],{
                   state:{
                     loginResponse:response

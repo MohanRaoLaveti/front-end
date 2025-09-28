@@ -13,10 +13,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class Dashboard implements OnInit{
   loginData: any;
-  userToken: string | null = null;
   id!:number
   display=""
-  banker:any;
+  bankerData:any;
   constructor(private router: Router,private http:HttpClient) {
     // Access the state immediately in the constructor or use in ngOnInit
     // history.state is a standard browser API object
@@ -28,18 +27,17 @@ export class Dashboard implements OnInit{
     ngOnInit(): void {
     if (this.loginData) {
       console.log('Data received from login:', this.loginData);
-      this.userToken = this.loginData.token;
+      const userToken=localStorage.getItem("accessToken")
       this.id=this.loginData.id;
       //BANKERDATA
       const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.userToken}`
+      Authorization: `Bearer ${userToken}`
     });
       this.http.get(`http://localhost:8080/api/banker/bankerData/${this.id}`, {headers})
       .subscribe({
-        next: (response: any) => {
-          
-            this.banker=response;
-            console.log(this.banker);
+        next: (response: any) => {       
+            this.bankerData=response;
+            console.log(this.bankerData);
             },
         error: (error: any) => {
           console.error("Login failed:", error); 

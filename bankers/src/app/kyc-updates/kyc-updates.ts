@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { Profiles } from "../profiles/profiles";
@@ -13,7 +13,7 @@ import { Profiles } from "../profiles/profiles";
 export class KycUpdates implements OnInit {
   customerProfiles: any[] = [];
   
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private cdr: ChangeDetectorRef) {}
   headers:any
   ngOnInit(): void {
     const token = localStorage.getItem('accessToken');
@@ -24,6 +24,7 @@ export class KycUpdates implements OnInit {
     this.http.get<any[]>('http://localhost:8080/api/banker/kycPendings',{headers}).subscribe({
       next: data => {this.customerProfiles = data
         console.log(this.customerProfiles)
+              this.cdr.detectChanges();
       },
       error: err => console.error('Failed to load KYC pendings', err)
     });

@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { NgChartsModule } from 'ng2-charts'; // ✅ correct path for v4+
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ChartConfiguration, ChartOptions, ChartType } from 'chart.js';
-
+import { ViewChild } from '@angular/core';
+import { BaseChartDirective } from 'ng2-charts';
 @Component({
   selector: 'app-bankerdashboard',
   standalone: true,
@@ -13,6 +14,8 @@ import { ChartConfiguration, ChartOptions, ChartType } from 'chart.js';
 })
 export class Bankerdashboard implements OnInit {
   @Input() bankerData: any;
+  @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
+
   accounts: any[] = [];
 
   pieChartData: ChartConfiguration<'pie'>['data'] = {
@@ -57,23 +60,26 @@ pieChartType: 'pie' = 'pie';
   }
 
   updateChartData(): void {
-    const typeCounts: Record<'SAVINGS' | 'CURRENT' | 'CREDIT', number> = {
-      SAVINGS: 0,
-      CURRENT: 0,
-      CREDIT: 0
-    };
+  const typeCounts: Record<'SAVINGS' | 'CURRENT' | 'CREDIT', number> = {
+    SAVINGS: 0,
+    CURRENT: 0,
+    CREDIT: 0
+  };
 
-    this.accounts.forEach(account => {
-      const type = account.accountType.toUpperCase();
-      if (typeCounts[type as keyof typeof typeCounts] !== undefined) {
-        typeCounts[type as keyof typeof typeCounts]++;
-      }
-    });
+  this.accounts.forEach(account => {
+    const type = account.accountType.toUpperCase();
+    if (typeCounts[type as keyof typeof typeCounts] !== undefined) {
+      typeCounts[type as keyof typeof typeCounts]++;
+    }
+  });
 
-    this.pieChartData.datasets[0].data = [
-      typeCounts['SAVINGS'],
-      typeCounts['CURRENT'],
-      typeCounts['CREDIT']
-    ];
-  }
+  this.pieChartData.datasets[0].data = [
+    typeCounts['SAVINGS'],
+    typeCounts['CURRENT'],
+    typeCounts['CREDIT']
+  ];
+
+  this.chart?.update();
+}
+
 }
