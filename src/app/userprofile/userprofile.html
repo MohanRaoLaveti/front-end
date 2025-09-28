@@ -30,6 +30,7 @@
         <a (click)="withdraw()" class="nav-link">Withdraw</a>
         <a (click)="loadProfile()" class="nav-link">View Profile</a>
         <a (click)="loadTransactions()" class="nav-link">Transactions</a>
+        <a (click)="loadSame()" class="nav-link">Dashboard</a>
       </nav>
       
 
@@ -55,6 +56,7 @@
       <div *ngIf="showTransactions">
         <app-transactions [accountId]="accountdata[0].id"></app-transactions>
       </div>
+    
       
       <!-- Default Welcome Panel -->
      <!-- Default Welcome Panel -->

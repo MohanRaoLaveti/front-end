@@ -155,7 +155,15 @@ export class Userprofile implements OnInit {
       this.resetViews();
       this.showDashboard=true;
   }
-
+  loadSame(){
+    this.showProfile = false;
+    this.showTransfer = false;
+    this.showDeposit = false;
+    this.showTransactions = false;
+    this.showWithdraw = false;
+    this.showPolicies = false;
+    this.showDashboard=false;
+  }
   vie(view: Viewprofile) {
     const profile = view.pro();
     if (profile) {

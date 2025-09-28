@@ -23,6 +23,7 @@ export class Dashboard implements OnChanges {
   chartType: ChartType = 'line';
   chartDataSet: any;
   chartOptions: any;
+accountNumber: any;
 
   constructor(private transactionService: TransactionService) {}
 

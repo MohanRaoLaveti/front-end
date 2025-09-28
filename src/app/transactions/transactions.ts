@@ -23,7 +23,7 @@ ngOnInit(){
  const url=`http://localhost:8080/api/transactions/${this.accountId}`;
 this.http.get(url,{headers}).subscribe({
   next:(res:any)=>{
-    this.tdata=res;
+    this.tdata=res.reverse();
     console.log(this.tdata);
   },error:(err)=>{
     console.log(err);
