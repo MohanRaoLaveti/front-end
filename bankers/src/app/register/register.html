@@ -1,5 +1,5 @@
-<div class="container mt-5">
-  <div class="card shadow p-4">
+<div class="container mt-5 d-flex justify-content-center">
+  <div class="card shadow p-4 w-50 ">
     <h4 class="card-title mb-4 text-center">Banker Registration</h4>
 
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
@@ -39,6 +39,8 @@
 
       <!-- Submit Button -->
       <button type="submit" class="btn btn-primary w-100">Register Banker</button>
+      <hr/>
+      <a class="d-flex justify-content-center " [routerLink]="['/login']" >Registered Already <b>Login</b></a>
     </form>
   </div>
 </div>
