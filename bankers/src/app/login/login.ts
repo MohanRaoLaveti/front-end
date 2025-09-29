@@ -25,8 +25,12 @@ export class Login {
     this.http.post("http://localhost:8080/api/auth/login", this.loginForm.value)
       .subscribe({
         next: (response: any) => {
-                //Adding token and role to localstorage 
-                localStorage.setItem('accessToken', response.token)
+          if(response==null){
+            alert("Banker is not approved")
+          }
+              //Adding token and role to localstorage 
+              else{
+              localStorage.setItem('accessToken', response.token)
                 localStorage.setItem('role',response.role)
                 
                 this.router.navigate(['/dashboard'],{
@@ -34,6 +38,7 @@ export class Login {
                     loginResponse:response
                   }
                 }); // Navigate to the dashboard route
+              }
             },
         error: (error: any) => {
           console.error("Login failed:", error); // Changed from "Registration failed" to "Login failed"
