@@ -1,7 +1,20 @@
 <p>adminpro works!</p>
 
-<input type="submit" (click)="fun()"/>
+
+    <button (click)="fun()">PENDING BANKERS</button>
+    <button (click)="fun1()">TOTAL CUSTOMERS</button>
+    <button (click)="fun2()">TOTAL USERS</button>
+
 <div *ngIf="pending">
-    <app-pending></app-pending>
+    
+<app-addbanker></app-addbanker>
+</div>
+<div *ngIf="totalcustomers">
+    
+<app-totalcustomers></app-totalcustomers>
+</div>
+<div *ngIf="totalbankers">
+    
+<app-totalbankers></app-totalbankers>
 </div>
 <router-outlet></router-outlet>

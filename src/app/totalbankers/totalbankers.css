@@ -1,0 +1,11 @@
+table{
+    border: 3px;
+    border-radius: 30px;
+    width: 800px;
+
+}
+tr{
+    background-color: rgb(149, 194, 235);
+    margin: 5px;
+    text-align: center;
+}

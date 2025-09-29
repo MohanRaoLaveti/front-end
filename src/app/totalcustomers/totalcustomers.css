@@ -1,0 +1,65 @@
+/* Page container */
+.container {
+  max-width: 1000px;
+}
+table{
+    border: 3px;
+}
+/* Header buttons */
+.btn-outline-secondary {
+  font-weight: 500;
+}
+/* Enhance table borders */
+.table-bordered {
+  border: 1px solid #dee2e6;
+}
+table{
+    width: 1250px;
+    background-color: #dee2e6;
+}
+.table-bordered th,
+.table-bordered td {
+  border: 1px solid #dee2e6;
+}
+
+/* Optional: darker border for header */
+.table thead th {
+  border-bottom: 2px solid #343a40;
+}
+button{
+    background-color: rgb(62, 130, 248);
+}
+
+/* Table styling */
+.table th, .table td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.table th {
+  font-size: 0.95rem;
+}
+
+.table td {
+  font-size: 0.9rem;
+}
+
+/* Account card */
+.card {
+  border-radius: 8px;
+}
+
+.card-header {
+  font-size: 1.1rem;
+}
+
+.card-body {
+  font-size: 0.95rem;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .card-body .row > div {
+    margin-bottom: 10px;
+  }
+}

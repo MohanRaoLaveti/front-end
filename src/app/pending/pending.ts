@@ -23,7 +23,7 @@ ngOnInit(){
     this.pdata=res;
     this.pdata.map((i)=>{if(i.kycStatus==="PENDING"){
       const urll=`http://localhost:8080/api/admin/profiles/${i.id}/kyc?status=APPROVED`;
-      this.http.put(urll,null,{headers}).subscribe({next:(re)=>{console.log(re)}});
+      this.http.put(urll,{headers}).subscribe({next:(re)=>{console.log(re)}});
     }})
   }});
 

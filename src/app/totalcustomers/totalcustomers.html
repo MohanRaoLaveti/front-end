@@ -1,0 +1,52 @@
+<div class="container py-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-primary">Total Customers</h2>
+    <div>
+      <button class="btn btn-outline-secondary me-2">Pending Bankers</button>
+      <button class="btn btn-outline-secondary me-2">Total Customers</button>
+      <button class="btn btn-outline-secondary">Total Users</button>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone Number</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let i of customers">
+          <td>{{ i.id }}</td>
+          <td>{{ i.fullName }}</td>
+          <td>{{ i.email }}</td>
+          <td>{{ i.phone }}</td>
+          <td>
+            <button class="btn btn-sm btn-info text-white" (click)="fun(i.id)">Get Account Details</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Account Details Section -->
+  <div *ngIf="accountdata && selectedId" class="card mt-5 shadow-sm">
+    <div class="card-header bg-gradient bg-info text-white fw-bold">
+      Account Details for Customer ID: {{ selectedId }}
+    </div>
+    <div class="card-body">
+      <div class="row mb-2">
+        <div class="col-md-6"><strong>Account ID:</strong> {{ accountdata[0]?.id }}</div>
+        <div class="col-md-6"><strong>Account Type:</strong> {{ accountdata[0]?.accountType }}</div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-md-6"><strong>Account Number:</strong> {{ accountdata[0]?.accountNumber }}</div>
+        <div class="col-md-6"><strong>Branch Name:</strong> {{ accountdata[0]?.branches?.branchName }}</div>
+      </div>
+    </div>
+  </div>
+</div>

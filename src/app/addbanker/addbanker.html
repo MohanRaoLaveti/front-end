@@ -1,0 +1,20 @@
+<p>addbanker works!</p>
+
+<ul>
+  <li *ngFor="let i of bdata">
+    <strong>BankerName::{{i.user.username}}</strong><br><strong>branchaddress::{{i.branches.branchAddress}}</strong><br>
+    <strong>BranchName::{{i.branches.branchName}}</strong>
+    <form (ngSubmit)="funct(i, designation.value, approval.value,status.value)" #bankerForm="ngForm">
+      <label for="designation">Designation</label>
+      <input type="text" #designation name="designation" required><br>
+
+      <label for="approval_limit">Approval Limit</label>
+      <input type="number" #approval name="approval_limit" required><br>
+<select type="text" #status name="status" required>
+  <option>APPROVED</option>
+  <option>REJECTED</option>
+</select><br>
+      <button type="submit">Click</button>
+    </form>
+  </li>
+</ul>
