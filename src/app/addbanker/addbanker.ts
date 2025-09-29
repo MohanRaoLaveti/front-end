@@ -39,11 +39,13 @@ export class Addbanker implements OnInit {
       designation: designation,
       approval_limit: Number(approval_),
       created_at: new Date().toISOString(),
-      user_id: selectedBanker.user.id
+      user_id: selectedBanker.user.id,
+      branch_id:selectedBanker.branches.branchId
+
     };
     this.status = status;
 
-    const url = `http://localhost:8080/api/admin/updateStatus/${selectedBanker.banker_id}?status=${this.status}`;
+    const url = `http://localhost:8080/api/admin/updateStatus/${selectedBanker.user.id}?status=${this.status}`;
     console.log(url, payload);
 
     this.http.put(url, payload, { headers: this.headers }).subscribe({
