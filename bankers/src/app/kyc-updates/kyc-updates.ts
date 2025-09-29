@@ -22,7 +22,8 @@ export class KycUpdates implements OnInit {
     Authorization: `Bearer ${token}`
     });
     this.http.get<any[]>('http://localhost:8080/api/banker/kycPendings',{headers}).subscribe({
-      next: data => {this.customerProfiles = data
+      next: data => {
+        this.customerProfiles = data
         console.log(this.customerProfiles)
               this.cdr.detectChanges();
       },
