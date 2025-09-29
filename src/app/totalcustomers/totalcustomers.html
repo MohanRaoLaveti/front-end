@@ -24,11 +24,14 @@
   </div>
 
   <!-- Account Details Section -->
-  <div *ngIf="accountdata && selectedId" class="card mt-5 shadow-sm">
-    <div class="card-header bg-gradient bg-info text-white fw-bold">
-      Account Details for Customer ID: {{ selectedId }}
-    </div>
-    <div class="card-body">
+  <!-- Account Details Section -->
+<div *ngIf="selectedId" class="card mt-5 shadow-sm">
+  <div class="card-header bg-gradient bg-info text-white fw-bold">
+    Account Details for Customer ID: {{ selectedId }}
+  </div>
+
+  <div class="card-body">
+    <ng-container *ngIf="accountdata && accountdata.length > 0 && accountdata[0]?.id; else noAccount">
       <div class="row mb-2">
         <div class="col-md-6"><strong>Account ID:</strong> {{ accountdata[0]?.id }}</div>
         <div class="col-md-6"><strong>Account Type:</strong> {{ accountdata[0]?.accountType }}</div>
@@ -37,5 +40,13 @@
         <div class="col-md-6"><strong>Account Number:</strong> {{ accountdata[0]?.accountNumber }}</div>
         <div class="col-md-6"><strong>Branch Name:</strong> {{ accountdata[0]?.branches?.branchName }}</div>
       </div>
-    </div>
+    </ng-container>
+
+    <ng-template #noAccount>
+      <div class="text-center text-muted py-3">
+        <i class="bi bi-exclamation-circle-fill me-2"></i> No account available for this customer.
+      </div>
+    </ng-template>
   </div>
+</div>
+

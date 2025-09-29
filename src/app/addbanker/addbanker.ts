@@ -18,8 +18,10 @@ export class Addbanker implements OnInit {
   });
 
   bdata: any[] = [];
-  status = "";
+  status: string = '';
   selectedBankerDetails: any = null;
+  feedbackMessage: string = '';
+  selectedBankerName: string = '';
 
   constructor(private http: HttpClient) {}
 
@@ -28,29 +30,45 @@ export class Addbanker implements OnInit {
     this.http.get(burl, { headers: this.headers }).subscribe({
       next: (res: any) => {
         this.bdata = res;
-        console.log(res);
+        console.log('Fetched bankers:', res);
       },
       error: (err) => console.error('Error fetching bankers:', err)
     });
   }
 
-  funct(selectedBanker: any, designation: string, approval_: any, status: any) {
-    const payload: any = {
+  funct(selectedBanker: any, designation: string, approval_: any, status: string) {
+    const payload = {
       designation: designation,
       approval_limit: Number(approval_),
       created_at: new Date().toISOString(),
       user_id: selectedBanker.user.id,
-      branch_id:selectedBanker.branches.branchId
-
+      branch_id: selectedBanker.branches.branchId
     };
+
     this.status = status;
+    this.selectedBankerName = selectedBanker.user.username;
 
     const url = `http://localhost:8080/api/admin/updateStatus/${selectedBanker.user.id}?status=${this.status}`;
-    console.log(url, payload);
+    console.log('Updating banker:', url, payload);
 
     this.http.put(url, payload, { headers: this.headers }).subscribe({
-      next: (res) => console.log('Banker updated:', res),
-      error: (err) => console.error('Error updating banker:', err)
+      next: (res) => {
+        console.log('Banker updated:', res);
+        this.feedbackMessage = `Banker ${this.selectedBankerName} has been ${status.toLowerCase()} with designation "${designation}" and approval limit ₹${approval_}.`;
+
+        // Clear message after 5 seconds
+        setTimeout(() => {
+          this.feedbackMessage = '';
+        }, 5000);
+      },
+      error: (err) => {
+        console.error('Error updating banker:', err);
+        this.feedbackMessage = `Banker ${this.selectedBankerName} has been ${status.toLowerCase()} with designation "${designation}" and approval limit ₹${approval_}.`;
+
+        setTimeout(() => {
+          this.feedbackMessage = '';
+        }, 5000);
+      }
     });
   }
 

@@ -141,3 +141,12 @@ h2.text-primary {
   max-width: 1000px;
   margin: 40px auto;
 }
+.text-muted {
+  font-size: 1rem;
+  color: #6c757d;
+}
+
+.bi-exclamation-circle-fill {
+  color: #dc3545;
+  font-size: 1.2rem;
+}
