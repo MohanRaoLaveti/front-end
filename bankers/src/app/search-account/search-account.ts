@@ -1,35 +1,49 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormGroup, FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-search-account',
-  imports: [CommonModule,FormsModule],
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './search-account.html',
-  styleUrl: './search-account.css'
+  styleUrls: ['./search-account.css']
 })
 export class SearchAccount {
 
-  accountNumber:string=''
-  display=false;
-  account:any;
+  accountNumber: string = '';
+  display: boolean = false;
+  account: any = null;
 
-  constructor(private http:HttpClient){}
+  constructor(private http: HttpClient) {}
 
-  searchAccount(){
+  async searchAccount(): Promise<void> {
     const token = localStorage.getItem('accessToken');
+    if (!token) {
+      console.error('No access token found');
+      return;
+    }
 
     const headers = new HttpHeaders({
-    Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${token}`
     });
-    this.http.get<any[]>(`http://localhost:8080/api/banker/account/${this.accountNumber}`,{headers}).subscribe({
-      next: data => {
-        this.account=data;
 
+    try {
+      const url = `http://localhost:8080/api/banker/account/${this.accountNumber}`;
+      this.account = await firstValueFrom(this.http.get<any>(url, { headers }));
+      if(this.account==null){
+        alert("Account Number is Invalid")
+      }
+      else{
         this.display=true;
-      },
-      error: err => console.error('Failed to load KYC pendings', err)
-    });
+      }
+      
+       
+    } catch (err) {
+      console.error('Failed to load account details', err);
+      this.display = false;
+    }
   }
 }

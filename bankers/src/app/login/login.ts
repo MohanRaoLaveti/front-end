@@ -25,8 +25,12 @@ export class Login {
     this.http.post("http://localhost:8080/api/auth/login", this.loginForm.value)
       .subscribe({
         next: (response: any) => {
-          if(response==null){
+          console.log(response);
+          if(response.status==="PENDING"){
             alert("Banker is not approved")
+          }
+          else if(response.status==="REJECTED"){
+            alert("Banker is Rejected")
           }
               //Adding token and role to localstorage 
               else{

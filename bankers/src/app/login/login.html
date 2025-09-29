@@ -1,19 +1,19 @@
-<div class="position-absolute top-50 start-50 translate-middle w-100" style="max-width: 400px;">
-  <form [formGroup]="loginForm" (ngSubmit)="onsubmit()" class="d-flex flex-column border p-4 rounded shadow bg-light">
-    <h4 class="text-center mb-4">Login</h4>
+  <div class="position-absolute top-50 start-50 translate-middle w-100" style="max-width: 400px;">
+    <form [formGroup]="loginForm" (ngSubmit)="onsubmit()" class="d-flex flex-column border p-4 rounded shadow bg-light">
+      <h4 class="text-center mb-4">Login</h4>
 
-    <div class="mb-3">
-      <label for="username" class="form-label">Username</label>
-      <input id="username" type="text" formControlName="username" class="form-control" placeholder="Enter username" />
-    </div>
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input id="username" type="text" formControlName="username" class="form-control" placeholder="Enter username" required />
+      </div>
 
-    <div class="mb-3">
-      <label for="password" class="form-label">Password</label>
-      <input id="password" type="password" formControlName="password" class="form-control" placeholder="Enter password" />
-    </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input id="password" type="password" formControlName="password" class="form-control" placeholder="Enter password" required/>
+      </div>
 
-    <button type="submit" id="button" class="btn btn-primary w-100">Login</button>
-    <hr/>
-    <a class="text-center" [routerLink]="['/register']">New User <b>Register</b></a>
-  </form>
-</div>
+      <button type="submit" id="button" class="btn btn-primary w-100">Login</button>
+      <hr/>
+      <a class="text-center" [routerLink]="['/register']">New User <b>Register</b></a>
+    </form>
+  </div>

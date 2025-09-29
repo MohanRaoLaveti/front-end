@@ -1,9 +1,23 @@
-<h3>Number of Accounts</h3>
-<div style="width: 400px; margin: auto;">
+<h3 style="text-align: center;">Banker Dashboard</h3>
 
-  <canvas baseChart
+<div style="width: 400px; margin: auto;">
+  <h4 class="">Number of Accounts</h4>
+  <canvas #pieChart baseChart
           [data]="pieChartData"
-          [type]="pieChartType"
+          [type]="'pie'"
           [options]="pieChartOptions">
+          <p>p</p>
   </canvas>
+  <p *ngIf="accounts.length==0">No Accounts</p>
 </div>
+
+<div style="width: 600px; margin: 40px auto;">
+  <h4 class="">Customer Profiles by Age Group</h4>
+  <canvas #barChart baseChart
+          [data]="ageGroupChartData"
+          [type]="'bar'"
+          [options]="ageGroupChartOptions">
+  </canvas>
+  <p *ngIf="profiles.length==0">No Customers</p>
+</div>
+
