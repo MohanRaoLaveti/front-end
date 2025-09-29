@@ -33,7 +33,7 @@ export class Transfer {
     'Authorization': `Bearer ${this.token}`
   });
 
-  const url = "http://localhost:8080/api/transactions/transfer";
+  const url = `http://localhost:8080/api/transactions/transfer`;
 
   const body = {
     fromAccountNumber: this.fromAccountNumber,

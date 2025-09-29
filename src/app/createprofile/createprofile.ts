@@ -57,7 +57,6 @@ export class Createprofile implements OnInit {
       const intervalId = setInterval(() => {
         this.http.get(url, { headers }).subscribe({
           next: (res1: any) => {
-            console.log("✅ Fetched customer details:", res1);
 
             if (res1.kycStatus === "APPROVED") {
               alert("🎉 KYC Approved!");
@@ -78,7 +77,7 @@ export class Createprofile implements OnInit {
             alert("Error fetching profile.");
           }
         });
-      }, 30000);
+      }, 1000);
     },
     error: (er) => {
       console.error('❌ Profile creation failed:', er);
