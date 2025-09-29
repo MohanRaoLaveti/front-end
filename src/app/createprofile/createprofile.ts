@@ -50,49 +50,40 @@ export class Createprofile implements OnInit {
       'Authorization': `Bearer ${this.token}`
     });
 
-    this.http.post(profileUrl, this.profile, { headers }).subscribe({
-      next: () => {
-        this.submissionMessage = '✅ Your details are submitted. KYC in progress.';
-        this.startKycPolling(headers);
-      },
-      error: (err) => {
-        console.error('❌ Profile creation failed:', err);
-        alert('Failed to create profile.');
-      }
-    });
-  }
+  this.http.post(profileUrl, this.profile, { headers }).subscribe({
+    next: (res) => {
+      const url = `http://localhost:8080/api/customer/profile/${this.profile.user.id}`;
+      
+      const intervalId = setInterval(() => {
+        this.http.get(url, { headers }).subscribe({
+          next: (res1: any) => {
+            console.log("✅ Fetched customer details:", res1);
 
-  private startKycPolling(headers: HttpHeaders) {
-    if (this.pollingActive) return;
-    this.pollingActive = true;
+            if (res1.kycStatus === "APPROVED") {
+              alert("🎉 KYC Approved!");
+    const openAccountUrl = `http://localhost:8080/api/accounts/open/${this.profile.user.id}/COIM05678901?accountType=${this.accountType}`;
+    this.http.post(openAccountUrl,null,{headers}).subscribe({
+      next:(ress:any)=>{console.log(ress);
+        this.router.navigate(['/app-userprofile',this.profile.user.id])
+      },error:(e)=>{console.log(e);}
+    })
 
-    const url = `http://localhost:8080/api/customer/profile/${this.profile.user.id}`;
-    const intervalId = setInterval(() => {
-      this.http.get(url, { headers }).subscribe({
-        next: (res1: any) => {
-          console.log("✅ Fetched customer details:", res1);
+              clearInterval(intervalId);
+              
 
-          if (res1.kycStatus === "APPROVED") {
-            alert("🎉 KYC Approved!");
-            clearInterval(intervalId);
-            this.pollingActive = false;
-
-            const openAccountUrl = `http://localhost:8080/api/accounts/open/${this.profile.user.id}/COIM05678901?accountType=${this.accountType}`;
-            this.http.post(openAccountUrl, null, { headers }).subscribe({
-              next: (ress: any) => {
-                console.log("✅ Account opened:", ress);
-                this.router.navigate(['/app-userprofile', this.profile.user.id]);
-              },
-              error: (e) => {
-                console.error("❌ Error opening account:", e);
-              }
-            });
+            }
+          },
+          error: (err) => {
+            console.error("❌ Error fetching profile:", err);
+            alert("Error fetching profile.");
           }
-        },
-        error: (err) => {
-          console.error("❌ Error fetching profile:", err);
-        }
-      });
-    }, 30000);
-  }
+        });
+      }, 30000);
+    },
+    error: (er) => {
+      console.error('❌ Profile creation failed:', er);
+      alert('Failed to create profile.');
+    }
+  });
+}
 }
