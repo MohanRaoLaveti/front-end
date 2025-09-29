@@ -1,20 +1,33 @@
-<p>addbanker works!</p>
+<div class="addbanker-container">
+  <h2 class="section-title">Add Banker</h2>
 
-<ul>
-  <li *ngFor="let i of bdata">
-    <strong>BankerName::{{i.user.username}}</strong><br><strong>branchaddress::{{i.branches.branchAddress}}</strong><br>
-    <strong>BranchName::{{i.branches.branchName}}</strong>
-    <form (ngSubmit)="funct(i, designation.value, approval.value,status.value)" #bankerForm="ngForm">
-      <label for="designation">Designation</label>
-      <input type="text" #designation name="designation" required><br>
+  <div class="banker-card" *ngFor="let i of bdata">
+    <div class="banker-info">
+      <p><strong>Banker Name:</strong> {{ i.user.username }}</p>
+      <p><strong>Branch Address:</strong> {{ i.branches.branchAddress }}</p>
+      <p><strong>Branch Name:</strong> {{ i.branches.branchName }}</p>
+    </div>
 
-      <label for="approval_limit">Approval Limit</label>
-      <input type="number" #approval name="approval_limit" required><br>
-<select type="text" #status name="status" required>
-  <option>APPROVED</option>
-  <option>REJECTED</option>
-</select><br>
-      <button type="submit">Click</button>
+    <form (ngSubmit)="funct(i, designation.value, approval.value, status.value)" #bankerForm="ngForm" class="banker-form">
+      <div class="form-group">
+        <label for="designation">Designation</label>
+        <input type="text" #designation name="designation" required>
+      </div>
+
+      <div class="form-group">
+        <label for="approval_limit">Approval Limit</label>
+        <input type="number" #approval name="approval_limit" required>
+      </div>
+
+      <div class="form-group">
+        <label for="status">Status</label>
+        <select #status name="status" required>
+          <option value="APPROVED">APPROVED</option>
+          <option value="REJECTED">REJECTED</option>
+        </select>
+      </div>
+
+      <button type="submit" class="submit-button">Approve Banker</button>
     </form>
-  </li>
-</ul>
+  </div>
+</div>

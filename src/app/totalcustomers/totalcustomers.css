@@ -1,65 +1,143 @@
-/* Page container */
+/* Container padding and font */
 .container {
-  max-width: 1000px;
-}
-table{
-    border: 3px;
-}
-/* Header buttons */
-.btn-outline-secondary {
-  font-weight: 500;
-}
-/* Enhance table borders */
-.table-bordered {
-  border: 1px solid #dee2e6;
-}
-table{
-    width: 1250px;
-    background-color: #dee2e6;
-}
-.table-bordered th,
-.table-bordered td {
-  border: 1px solid #dee2e6;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f8f9fa;
 }
 
-/* Optional: darker border for header */
-.table thead th {
-  border-bottom: 2px solid #343a40;
+/* Header section */
+h2.text-primary {
+  font-weight: 600;
+  font-size: 1.8rem;
+  margin-bottom: 0;
 }
-button{
-    background-color: rgb(62, 130, 248);
+
+/* Button group */
+.btn-outline-secondary {
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #dee2e6;
+  color: #212529;
 }
 
 /* Table styling */
-.table th, .table td {
+.table {
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.table thead th {
+  font-weight: 600;
   text-align: center;
   vertical-align: middle;
 }
 
-.table th {
+.table tbody td {
+  vertical-align: middle;
+  text-align: center;
   font-size: 0.95rem;
 }
 
-.table td {
-  font-size: 0.9rem;
+/* Action button */
+.btn-info.text-white {
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
 }
 
-/* Account card */
+.btn-info.text-white:hover {
+  background-color: #0b7dda;
+}
+
+/* Account details card */
 .card {
-  border-radius: 8px;
+  border-radius: 10px;
+  background-color: #ffffff;
 }
 
 .card-header {
   font-size: 1.1rem;
+  padding: 12px 20px;
+  border-bottom: 1px solid #dee2e6;
 }
 
 .card-body {
+  padding: 20px;
   font-size: 0.95rem;
+}
+
+.card-body .row > div {
+  padding: 6px 0;
 }
 
 /* Responsive tweaks */
 @media (max-width: 768px) {
-  .card-body .row > div {
-    margin-bottom: 10px;
+  .d-flex.justify-content-between {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
   }
+
+  .btn-outline-secondary {
+    margin-bottom: 8px;
+  }
+
+  .card-button {
+    width: 100%;
+  }
+}
+/* Table row spacing */
+.table tbody tr {
+  border-bottom: 1px solid #dee2e6;
+  height: 60px; /* adds vertical space between rows */
+}
+
+/* Table cell padding */
+.table td, .table th {
+  padding: 16px 20px; /* vertical and horizontal spacing */
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* Account details row spacing */
+.card-body .row {
+  margin-bottom: 16px; /* space between each row */
+}
+
+/* Column spacing inside account details */
+.card-body .row > div {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+/* Optional: increase spacing between buttons */
+.d-flex .btn {
+  margin-right: 12px;
+}
+/* Center the table */
+.table-responsive {
+  display: flex;
+  justify-content: center;
+}
+
+.table {
+  width: 90%;
+  max-width: 1000px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Optional: center the Account Details card too */
+.card {
+  max-width: 1000px;
+  margin: 40px auto;
 }
