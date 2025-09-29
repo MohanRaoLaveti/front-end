@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
-
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-createprofile',
@@ -32,6 +30,8 @@ export class Createprofile implements OnInit {
 
   token: string = '';
   accountType = '';
+  submissionMessage: string = '';
+  pollingActive: boolean = false;
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router) {}
 
@@ -41,49 +41,58 @@ export class Createprofile implements OnInit {
 
     this.profile.user.id = userId;
     this.token = tokenParam ?? '';
-    
   }
- onSubmit() {
-  const profileUrl = `http://localhost:8080/api/customer/profile/create`;
-  const headers = new HttpHeaders({
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${this.token}`
-  });
 
-  this.http.post(profileUrl, this.profile, { headers }).subscribe({
-    next: (res) => {
-      const url = `http://localhost:8080/api/customer/profile/${this.profile.user.id}`;
-      
-      const intervalId = setInterval(() => {
-        this.http.get(url, { headers }).subscribe({
-          next: (res1: any) => {
-            console.log("✅ Fetched customer details:", res1);
+  onSubmit() {
+    const profileUrl = `http://localhost:8080/api/customer/profile/create`;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.token}`
+    });
 
-            if (res1.kycStatus === "APPROVED") {
-              alert("🎉 KYC Approved!");
-    const openAccountUrl = `http://localhost:8080/api/accounts/open/${this.profile.user.id}/COIM05678901?accountType=${this.accountType}`;
-    this.http.post(openAccountUrl,null,{headers}).subscribe({
-      next:(ress:any)=>{console.log(ress);
-        this.router.navigate(['/app-userprofile',this.profile.user.id])
-      },error:(e)=>{console.log(e);}
-    })
+    this.http.post(profileUrl, this.profile, { headers }).subscribe({
+      next: () => {
+        this.submissionMessage = '✅ Your details are submitted. KYC in progress.';
+        this.startKycPolling(headers);
+      },
+      error: (err) => {
+        console.error('❌ Profile creation failed:', err);
+        alert('Failed to create profile.');
+      }
+    });
+  }
 
-              clearInterval(intervalId);
-              
+  private startKycPolling(headers: HttpHeaders) {
+    if (this.pollingActive) return;
+    this.pollingActive = true;
 
-            }
-          },
-          error: (err) => {
-            console.error("❌ Error fetching profile:", err);
-            alert("Error fetching profile.");
+    const url = `http://localhost:8080/api/customer/profile/${this.profile.user.id}`;
+    const intervalId = setInterval(() => {
+      this.http.get(url, { headers }).subscribe({
+        next: (res1: any) => {
+          console.log("✅ Fetched customer details:", res1);
+
+          if (res1.kycStatus === "APPROVED") {
+            alert("🎉 KYC Approved!");
+            clearInterval(intervalId);
+            this.pollingActive = false;
+
+            const openAccountUrl = `http://localhost:8080/api/accounts/open/${this.profile.user.id}/COIM05678901?accountType=${this.accountType}`;
+            this.http.post(openAccountUrl, null, { headers }).subscribe({
+              next: (ress: any) => {
+                console.log("✅ Account opened:", ress);
+                this.router.navigate(['/app-userprofile', this.profile.user.id]);
+              },
+              error: (e) => {
+                console.error("❌ Error opening account:", e);
+              }
+            });
           }
-        });
-      }, 30000);
-    },
-    error: (er) => {
-      console.error('❌ Profile creation failed:', er);
-      alert('Failed to create profile.');
-    }
-  });
-}
+        },
+        error: (err) => {
+          console.error("❌ Error fetching profile:", err);
+        }
+      });
+    }, 30000);
+  }
 }

@@ -79,3 +79,14 @@ button[disabled] {
   width: 100%;
   max-width: 300px;
 }
+.submission-banner {
+  background-color: #e0f7fa;
+  color: #00796b;
+  padding: 12px 20px;
+  margin-bottom: 24px;
+  border-left: 6px solid #00796b;
+  border-radius: 6px;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  text-align: center;
+}

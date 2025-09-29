@@ -9,6 +9,7 @@ import { DepositComponent } from '../deposit/deposit';
 import { Transactions } from '../transactions/transactions';
 import { WithdrawComponent } from "../withdraw/withdraw";
 import { Dashboard } from "../dashboard/dashboard";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-userprofile',
@@ -58,7 +59,7 @@ export class Userprofile implements OnInit {
 
   highlightedPolicy: { label: string; message: string } | null = null;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient,private router:Router) {}
 
   ngOnInit() {
     this.userId = Number(this.route.snapshot.paramMap.get('id'));
@@ -67,7 +68,7 @@ export class Userprofile implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.accountType = params['accountType'] || '';
       this.token = localStorage.getItem('token') || '';
-      localStorage.setItem('token', this.token);
+      // localStorage.setItem('token', this.token);
 
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
@@ -164,6 +165,10 @@ export class Userprofile implements OnInit {
     this.showPolicies = false;
     this.showDashboard=false;
   }
+  logout() {
+  localStorage.clear(); // or remove specific tokens if needed
+  this.router.navigate(['/']); // redirect to home
+}
   vie(view: Viewprofile) {
     const profile = view.pro();
     if (profile) {

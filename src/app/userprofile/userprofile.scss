@@ -241,6 +241,19 @@
   background-color: #2980b9;
   transform: scale(1.03);
 }
+.logout-button {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 1.4rem;
+  margin-left: 16px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.logout-button:hover {
+  color: #ff4d4d;
+}
 
 
 

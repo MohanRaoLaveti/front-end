@@ -29,6 +29,8 @@ export class LoginComponent {
       next: (res: any) => {
         console.log('Login response:', res);
 
+        localStorage.setItem('token',res.token);
+
         if (res.id && res.token) {
           const headers = new HttpHeaders({
             'Content-Type': 'application/json',

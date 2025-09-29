@@ -4,13 +4,15 @@
   <div class="navbar-left">
     <a routerLink="/" class="brand-link">Smart Banking</a>
   </div>
-<div class="navbar-right">
-  <i class="bi bi-bell-fill notification-icon" title="Notifications"></i>
-  <i class="bi bi-person-circle profile-icon" (click)="loadProfile()" title="View Profile"></i>
-</div>
-
-
+  <div class="navbar-right">
+    <i class="bi bi-bell-fill notification-icon" title="Notifications"></i>
+    <i class="bi bi-person-circle profile-icon" (click)="loadProfile()" title="View Profile"></i>
+    <button class="logout-button" (click)="logout()" title="Logout">
+      <i class="bi bi-box-arrow-right"></i>
+    </button>
+  </div>
 </nav>
+
 
 <!-- KYC Check -->
 <div *ngIf="!accountdata?.length; else dis"><h1>KYC PENDING</h1></div>

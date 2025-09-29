@@ -78,4 +78,8 @@
   <div class="form-actions">
   <button type="submit" [disabled]="profileForm.invalid">Create Profile</button>
 </div>
+<div *ngIf="submissionMessage" class="submission-banner">
+  {{ submissionMessage }}
+</div>
+
 </form>
