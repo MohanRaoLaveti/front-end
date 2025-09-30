@@ -44,8 +44,9 @@ export class Login {
                 }); // Navigate to the dashboard route
               }
             },
-        error: (error: any) => {
-          console.error("Login failed:", error); // Changed from "Registration failed" to "Login failed"
+        error: (err: any) => {
+          console.log(err.error.message)
+          alert(err.error.message)
         }
       });
   }
