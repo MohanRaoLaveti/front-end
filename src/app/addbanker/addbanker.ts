@@ -48,7 +48,7 @@ export class Addbanker implements OnInit {
     this.status = status;
     this.selectedBankerName = selectedBanker.user.username;
 
-    const url = `http://localhost:8080/api/admin/updateStatus/${selectedBanker.user.id}?status=${this.status}`;
+    const url = `https://smartbanking-production.up.railway.app/api/admin/updateStatus/${selectedBanker.user.id}?status=${this.status}`;
     console.log('Updating banker:', url, payload);
 
     this.http.put(url, payload, { headers: this.headers }).subscribe({

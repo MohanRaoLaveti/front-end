@@ -23,7 +23,7 @@ export class Totalbankers implements OnInit {
   });
 
 
-    const url = `http://localhost:8080/api/admin/users`;
+    const url = `https://smartbanking-production.up.railway.app/api/admin/users`;
 
     this.http.get(url, { headers}).subscribe({
       next: (res: any) => {

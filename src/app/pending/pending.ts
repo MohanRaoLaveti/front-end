@@ -17,7 +17,7 @@ ngOnInit(){
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${this.token}`
     });
-  const url="http://localhost:8080/api/admin/profiles";
+  const url="https://smartbanking-production.up.railway.app/api/admin/profiles";
   console.log(this.token);
   this.http.get(url,{headers}).subscribe({next:(res:any)=>{console.log(res);
     this.pdata=res;

@@ -21,7 +21,7 @@ export class LoginComponent {
 saveDataAndLogin() {
   const userData = { username: this.username, password: this.password };
 
-  this.http.post('http://localhost:8080/api/auth/login', userData).subscribe({
+  this.http.post('https://smartbanking-production.up.railway.app/api/auth/login', userData).subscribe({
     next: (res: any) => {
       console.log(res);
       console.log(res.token);

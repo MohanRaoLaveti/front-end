@@ -9,6 +9,6 @@ import { routes } from './app/app.routes';
 bootstrapApplication(App, {
   providers: [
     provideRouter(routes, withHashLocation()),
-    provideHttpClient(withFetch()) // ✅ Enables Fetch API for better SSR support
+    provideHttpClient() // ✅ Enables Fetch API for better SSR support
   ]
 });
