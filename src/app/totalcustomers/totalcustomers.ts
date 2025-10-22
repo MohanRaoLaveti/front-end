@@ -42,7 +42,7 @@ export class Totalcustomers implements OnInit {
       'Authorization': `Bearer ${this.token}`
     });
 
-    const url = `http://localhost:8080/api/admin/${id}`;
+    const url = `https://smartbanking-production.up.railway.app/api/admin/${id}`;
     this.http.get(url, { headers }).subscribe({
       next: (res: any) => {
         this.accountdata = res;
