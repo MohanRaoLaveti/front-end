@@ -22,7 +22,7 @@ ngOnInit(){
   this.http.get(url,{headers}).subscribe({next:(res:any)=>{console.log(res);
     this.pdata=res;
     this.pdata.map((i)=>{if(i.kycStatus==="PENDING"){
-      const urll=`http://localhost:8080/api/admin/profiles/${i.id}/kyc?status=APPROVED`;
+      const urll=`https://smartbanking-production.up.railway.app/api/admin/profiles/${i.id}/kyc?status=APPROVED`;
       this.http.put(urll,{headers}).subscribe({next:(re)=>{console.log(re)}});
     }})
   }});

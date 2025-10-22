@@ -26,7 +26,7 @@ export class Addbanker implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    const burl = `http://localhost:8080/api/admin/getPendingBankers`;
+    const burl = `https://smartbanking-production.up.railway.app/api/admin/getPendingBankers`;
     this.http.get(burl, { headers: this.headers }).subscribe({
       next: (res: any) => {
         this.bdata = res;
