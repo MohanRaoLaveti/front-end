@@ -43,7 +43,7 @@ ngOnInit() {
     'Authorization': `Bearer ${this.token}`
   });
 
-  const url = `http://localhost:8080/api/customer/profile/${this.userId}`;
+  const url = `https://smartbanking-production.up.railway.app/api/customer/profile/${this.userId}`;
 
   this.http.get(url, { headers }).subscribe({
     next: (response: any) => {

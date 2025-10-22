@@ -11,6 +11,7 @@ import { Transfer } from './transfer/transfer';
 import { DepositComponent } from './deposit/deposit';
 import { WithdrawComponent } from './withdraw/withdraw';
 import { Dashboard } from './dashboard/dashboard';
+import { Kyc } from './kyc/kyc';
 
 export const routes: Routes = [
   { path: 'Registration', component: Registration },
@@ -27,4 +28,5 @@ export const routes: Routes = [
   },
     {path:'profile/deposit',component:DepositComponent},
   { path: 'dashboard', component: Dashboard },
+  {path:'kyc',component:Kyc}
 ];

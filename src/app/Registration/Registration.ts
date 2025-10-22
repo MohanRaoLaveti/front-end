@@ -19,7 +19,7 @@ export class Registration {
   constructor(private http: HttpClient, private router: Router) {}
 
   registerUser() {
-    const url = 'http://localhost:8080/api/auth/register';
+    const url = 'https://smartbanking-production.up.railway.app/api/auth/register';
     const body = {
       username: this.username,
       password: this.password,
@@ -39,7 +39,7 @@ export class Registration {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     this.http.post(url, body, { headers }).subscribe({
-      next: (response: any) => {
+      next: (response: any) => {localStorage.setItem("id",response.id);
         if (response.id && response.id !== -1) {
           alert('Registered successfully. User ID: ' + response.id);
 

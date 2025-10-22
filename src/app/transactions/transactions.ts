@@ -20,7 +20,7 @@ ngOnInit(){
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${this.token}` // ✅ include token
   });
- const url=`http://localhost:8080/api/transactions/${this.accountId}`;
+ const url=`https://smartbanking-production.up.railway.app/api/transactions/${this.accountId}`;
 this.http.get(url,{headers}).subscribe({
   next:(res:any)=>{
     this.tdata=res.reverse();

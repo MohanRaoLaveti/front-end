@@ -41,10 +41,12 @@ export class Createprofile implements OnInit {
 
     this.profile.user.id = userId;
     this.token = tokenParam ?? '';
+   
   }
+  
 
   onSubmit() {
-    const profileUrl = `http://localhost:8080/api/customer/profile/create`;
+    const profileUrl = `https://smartbanking-production.up.railway.app/api/customer/profile/create`;
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${this.token}`
@@ -52,33 +54,10 @@ export class Createprofile implements OnInit {
 
   this.http.post(profileUrl, this.profile, { headers }).subscribe({
     next: (res) => {
-      const url = `http://localhost:8080/api/customer/profile/${this.profile.user.id}`;
+console.log("created profile");
+localStorage.setItem("actype",this.accountType);
+this.router.navigate(['/kyc']);
       
-      const intervalId = setInterval(() => {
-        this.http.get(url, { headers }).subscribe({
-          next: (res1: any) => {
-            console.log("✅ Fetched customer details:", res1);
-
-            if (res1.kycStatus === "APPROVED") {
-              alert("🎉 KYC Approved!");
-    const openAccountUrl = `http://localhost:8080/api/accounts/open/${this.profile.user.id}/COIM05678901?accountType=${this.accountType}`;
-    this.http.post(openAccountUrl,null,{headers}).subscribe({
-      next:(ress:any)=>{console.log(ress);
-        this.router.navigate(['/app-userprofile',this.profile.user.id])
-      },error:(e)=>{console.log(e);}
-    })
-
-              clearInterval(intervalId);
-              
-
-            }
-          },
-          error: (err) => {
-            console.error("❌ Error fetching profile:", err);
-            alert("Error fetching profile.");
-          }
-        });
-      }, 30000);
     },
     error: (er) => {
       console.error('❌ Profile creation failed:', er);

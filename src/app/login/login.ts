@@ -25,7 +25,7 @@ export class LoginComponent {
   saveDataAndLogin() {
     const userData = { username: this.username, password: this.password };
 
-    this.http.post(`http://localhost:8080/api/auth/login`, userData).subscribe({
+    this.http.post(`https://smartbanking-production.up.railway.app/api/auth/login`, userData).subscribe({
       next: (res: any) => {
         console.log('Login response:', res);
 
@@ -38,10 +38,10 @@ export class LoginComponent {
           });
 
           this.ngZone.run(() => {
-            this.http.get(`http://localhost:8080/api/accounts/${res.id}`, { headers }).subscribe({
+            this.http.get(`https://smartbanking-production.up.railway.app/api/accounts/${res.id}`, { headers }).subscribe({
               next: (rr: any) => {
                 console.log('Account response:', rr);
-                  this.router.navigate(['/app-userprofile',res.id]);
+                  this.router.navigate(["/kyc"]);
                 
               
               },

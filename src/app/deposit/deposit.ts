@@ -35,7 +35,7 @@ export class DepositComponent implements OnInit {
       return;
     }
  
-    const url = `http://localhost:8080/api/transactions/deposit/${this.accountId}?amount=${this.amount}`;
+    const url = `https://smartbanking-production.up.railway.app/api/transactions/deposit/${this.accountId}?amount=${this.amount}`;
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${this.token}`

@@ -75,7 +75,7 @@ export class Userprofile implements OnInit {
         'Authorization': `Bearer ${this.token}`
       });
 
-      const url = `http://localhost:8080/api/accounts/${this.userId}`;
+      const url = `https://smartbanking-production.up.railway.app/api/accounts/${this.userId}`;
 
       this.http.get(url, { headers }).subscribe({
         next: (res: any) => {
