@@ -12,9 +12,9 @@ import { BlobOptions } from 'buffer';
 })
 export class Kyc {
   token:string=localStorage.getItem('token')||'';
-  id:Number=Number(localStorage.getItem('id'))||0;
   acctype:String=localStorage.getItem("actype")||'';
   approved:Boolean=false;
+  username:String=localStorage.getItem("username")||'';
   constructor(private http:HttpClient,private router:Router){}
 ngOnInit(){
    const headers = new HttpHeaders({
@@ -23,17 +23,17 @@ ngOnInit(){
     });
 
   
-          const url = `https://smartbanking-production.up.railway.app/api/customer/profile/${this.id}`;
+          const url = `https://smartbanking-production.up.railway.app/api/customer/profile/user/${this.username}`;
 
         this.http.get(url, { headers }).subscribe({
           next: (res1: any) => {
             console.log("✅ Fetched customer details:", res1);
             if(this.approved!=true){
             if (res1.kycStatus === "APPROVED") {
-              this.http.get(`https://smartbanking-production.up.railway.app/api/accounts/${this.id}`,{headers}).subscribe({
+              this.http.get(`https://smartbanking-production.up.railway.app/api/accounts/${res1.user.id}`,{headers}).subscribe({
                 next:(ree:any)=>{
                     if(ree.accountNumber!==""){
-        this.router.navigate(['/app-userprofile',this.id]);
+        this.router.navigate(['/app-userprofile',res1.user.id]);
 
                     }
 
@@ -42,10 +42,10 @@ ngOnInit(){
 
 
 
-    const openAccountUrl = `https://smartbanking-production.up.railway.app/api/accounts/open/${this.id}/COIM05678901?accountType=${this.acctype}`;
+    const openAccountUrl = `https://smartbanking-production.up.railway.app/api/accounts/open/${res1.user.id}/COIM05678901?accountType=${this.acctype}`;
     this.http.post(openAccountUrl,null,{headers}).subscribe({
       next:(ress:any)=>{console.log(ress);
-        this.router.navigate(['/app-userprofile',this.id]);
+        this.router.navigate(['/app-userprofile',res1.user.id]);
       },error:(e)=>{console.log(e);}
     })
 

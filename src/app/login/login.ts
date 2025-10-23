@@ -30,7 +30,7 @@ export class LoginComponent {
         console.log('Login response:', res);
 
         localStorage.setItem('token',res.token);
-
+localStorage.setItem("username",this.username);
         if (res.id && res.token) {
           const headers = new HttpHeaders({
             'Content-Type': 'application/json',

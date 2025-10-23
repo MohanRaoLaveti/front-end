@@ -19,6 +19,7 @@ export class Registration {
   constructor(private http: HttpClient, private router: Router) {}
 
   registerUser() {
+    localStorage.setItem("username",this.username);
     const url = 'https://smartbanking-production.up.railway.app/api/auth/register';
     const body = {
       username: this.username,

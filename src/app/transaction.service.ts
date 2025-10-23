@@ -13,7 +13,7 @@ export interface Transaction {
 
 @Injectable({ providedIn: 'root' })
 export class TransactionService {
-  private apiUrl = 'http://localhost:8080/api/transactions';
+  private apiUrl = 'https://smartbanking-production.up.railway.app/api/transactions';
 
   constructor(private http: HttpClient) {}
 
