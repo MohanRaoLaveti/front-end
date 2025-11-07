@@ -23,14 +23,14 @@ ngOnInit(){
     });
 
   
-          const url = `https://smartbanking-production.up.railway.app/api/customer/profile/user/${this.username}`;
+          const url = `http://localhost:8080/api/customer/profile/user/${this.username}`;
 
         this.http.get(url, { headers }).subscribe({
           next: (res1: any) => {
             console.log("✅ Fetched customer details:", res1);
             if(this.approved!=true){
             if (res1.kycStatus === "APPROVED") {
-              this.http.get(`https://smartbanking-production.up.railway.app/api/accounts/${res1.user.id}`,{headers}).subscribe({
+              this.http.get(`http://localhost:8080/api/accounts/${res1.user.id}`,{headers}).subscribe({
                 next:(ree:any)=>{
                     if(ree.accountNumber!==""){
         this.router.navigate(['/app-userprofile',res1.user.id]);
@@ -42,7 +42,7 @@ ngOnInit(){
 
 
 
-    const openAccountUrl = `https://smartbanking-production.up.railway.app/api/accounts/open/${res1.user.id}/COIM05678901?accountType=${this.acctype}`;
+    const openAccountUrl = `http://localhost:8080/api/accounts/open/${res1.user.id}/COIM05678901?accountType=${this.acctype}`;
     this.http.post(openAccountUrl,null,{headers}).subscribe({
       next:(ress:any)=>{console.log(ress);
         this.router.navigate(['/app-userprofile',res1.user.id]);
